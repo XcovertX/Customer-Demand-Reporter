@@ -24,6 +24,8 @@ public class DemandTracker extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception  {
 		
+		window = primaryStage;
+		
 		try {
 			
 			FXMLLoader fxmll =  new FXMLLoader( getClass().getClassLoader().getResource("Main.fxml"));
@@ -37,13 +39,14 @@ public class DemandTracker extends Application {
 				e.printStackTrace();
 			}
 			
-			scene = new Scene(root,400,400);
+			scene = new Scene(root);
 			scene.getStylesheets().add(getClass().getClassLoader().getResource("main.css").toExternalForm());
 			
 			controller = new Controller();
 			
-			primaryStage.setScene(scene);
-			primaryStage.show();
+			window.setTitle("Demand Tracker");
+			window.setScene(scene);
+			window.show();
 			
 		} catch(Exception e) {
 			
