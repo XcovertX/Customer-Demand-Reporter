@@ -1,4 +1,4 @@
-package application;
+package main.java.application;
 
 import java.net.URL;
 import java.util.ResourceBundle;
