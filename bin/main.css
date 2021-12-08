@@ -1,1 +1,44 @@
 /* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
+
+.button {
+	-fx-text-fill: #F7F4E9;
+	-fx-background-color: #438945;
+	-fx-font-size: 15;
+	-fx-font-Family: consolas;
+	-fx-border-radius: 4px;
+}
+
+.button:hover {
+	-fx-border-color: #1D1D2C;
+}
+
+.button:active {
+	-fx-background-color: #EBA63F;
+}
+	
+#LeftVBox {
+	-fx-text-fill: #bd0002;
+	-fx-control-inner-background: #ff874b;
+	-fx-background-color: #EBA63F;
+}
+
+#BasePane {
+	-fx-background-color: #1D1D2C;
+}
+
+#MainPane {
+	-fx-text-fill: #bd0002;
+	-fx-control-inner-background: #ff874b;
+	-fx-background-color: #EBA63F;
+}
+
+#MenuBar {
+	-fx-control-inner-background: #ff874b;
+	-fx-background-color: #438945;
+}
+
+#MenuBar .label {
+	-fx-font-size: 15;
+	-fx-font-Family: consolas;
+	-fx-text-fill: #F7F4E9;
+}
