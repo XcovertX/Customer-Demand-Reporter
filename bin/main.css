@@ -8,6 +8,14 @@
 	-fx-border-radius: 4px;
 }
 
+.choice-box {
+	-fx-text-fill: #F7F4E9;
+	-fx-background-color: #438945;
+	-fx-font-size: 15;
+	-fx-font-Family: consolas;
+	-fx-border-radius: 4px;
+}
+
 .button:hover {
 	-fx-border-color: #1D1D2C;
 }
@@ -32,12 +40,12 @@
 	-fx-background-color: #EBA63F;
 }
 
-#MenuBar {
+#MainMenu {
 	-fx-control-inner-background: #ff874b;
 	-fx-background-color: #438945;
 }
 
-#MenuBar .label {
+#MainMenu .label {
 	-fx-font-size: 15;
 	-fx-font-Family: consolas;
 	-fx-text-fill: #F7F4E9;

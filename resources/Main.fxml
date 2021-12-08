@@ -2,26 +2,20 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
 
 <BorderPane id="BasePane" prefHeight="618.0" prefWidth="1000.0" stylesheets="@main.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
    <center>
       <BorderPane>
-         <center>
-            <Pane id="MainPane" stylesheets="@main.css" BorderPane.alignment="CENTER">
-               <BorderPane.margin>
-                  <Insets left="5.0" top="5.0" />
-               </BorderPane.margin>
-            </Pane>
-         </center>
          <top>
-            <MenuBar id="MenuBar" stylesheets="@main.css" BorderPane.alignment="CENTER">
+            <MenuBar id="MainMenu" stylesheets="@main.css" BorderPane.alignment="CENTER">
               <menus>
                 <Menu mnemonicParsing="false" text="File">
                   <items>
@@ -63,6 +57,45 @@
                </BorderPane.margin>
             </VBox>
          </left>
+         <center>
+            <HBox id="MainPane" prefHeight="100.0" prefWidth="200.0" spacing="10.0" stylesheets="@main.css" BorderPane.alignment="CENTER">
+               <BorderPane.margin>
+                  <Insets left="5.0" top="5.0" />
+               </BorderPane.margin>
+               <children>
+                  <BorderPane>
+                     <top>
+                        <ChoiceBox id="ChoiceBox" prefHeight="35.0" prefWidth="185.0" stylesheets="@main.css" BorderPane.alignment="CENTER">
+                           <BorderPane.margin>
+                              <Insets left="10.0" right="5.0" top="10.0" />
+                           </BorderPane.margin>
+                        </ChoiceBox>
+                     </top>
+                  </BorderPane>
+                  <BorderPane>
+                     <top>
+                        <ChoiceBox prefHeight="35.0" prefWidth="185.0" BorderPane.alignment="CENTER">
+                           <BorderPane.margin>
+                              <Insets left="5.0" right="5.0" top="10.0" />
+                           </BorderPane.margin>
+                        </ChoiceBox>
+                     </top>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </BorderPane>
+                  <BorderPane>
+                     <top>
+                        <ChoiceBox prefHeight="35.0" prefWidth="185.0" BorderPane.alignment="CENTER">
+                           <BorderPane.margin>
+                              <Insets left="5.0" right="5.0" top="10.0" />
+                           </BorderPane.margin>
+                        </ChoiceBox>
+                     </top>
+                  </BorderPane>
+               </children>
+            </HBox>
+         </center>
       </BorderPane>
    </center>
    <padding>
