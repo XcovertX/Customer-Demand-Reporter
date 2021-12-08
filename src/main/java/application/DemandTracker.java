@@ -52,6 +52,10 @@ public class DemandTracker extends Application {
 			
 			e.printStackTrace();
 		}
+		
+		ExcelReader er = new ExcelReader();
+		
+		er.read(".\\datafiles\\SampleData.xlsx");
 	}
 	
 }
