@@ -2,10 +2,6 @@ plugins {
     id 'org.openjfx.javafxplugin' version '0.0.10'
 }
 
-ext.apachePoiVersion = '3.15'
-ext.groovyVersion = '2.4.8'
-ext.spockVersion = '1.1-groovy-2.4-rc-3'
-
 apply plugin: "java"
 apply plugin: 'groovy'
 apply plugin: "application"
@@ -31,10 +27,8 @@ javafx {
 }
 
 dependencies {
-  compile "org.apache.poi:poi:$apachePoiVersion"
-  compile "org.apache.poi:poi-ooxml:$apachePoiVersion"
-  testCompile "org.codehaus.groovy:groovy:$groovyVersion"
-  testCompile "org.spockframework:spock-core:$spockVersion"
+	implementation 'org.apache.nifi:nifi-poi-bundle:1.15.0'
+
 }
 
 
