@@ -55,7 +55,7 @@ public class DemandTracker extends Application {
 		
 		ExcelReader er = new ExcelReader();
 		
-		er.read(".\\datafiles\\SampleData.xlsx");
+		er.read(".\\datafiles\\21-11 Demand Sheet Puyallup.xlsx");
 	}
 	
 }

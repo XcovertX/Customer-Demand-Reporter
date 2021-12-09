@@ -18,34 +18,46 @@ public class ExcelReader {
 		
 		XSSFWorkbook workbook = new XSSFWorkbook(inputStream);
 		
-		XSSFSheet sheet = workbook.getSheet("SalesOrders");
+		XSSFSheet sheet = workbook.getSheet("Input Tab");
 		
 		// For loop to retrieve data
 		int rows = sheet.getLastRowNum();
-		int cols = sheet.getRow(1).getLastCellNum();
+		int cols = 17;
 		
 		for(int i = 0; i < rows; i++) {
 			
 			XSSFRow row = sheet.getRow(i);
+			System.out.println("row: " + i);
+			System.out.println("col total: " + cols);
 			
 			for(int j = 0; j < cols; j++) {
 				
-				XSSFCell cell = row.getCell(j);
-				
-				switch(cell.getCellType()) {
-				
-				case STRING: System.out.println("String Value: " + cell.getStringCellValue());
-				break;
-				
-				case NUMERIC: System.out.println("Numeric Value: " + cell.getNumericCellValue());
-				break;
-				
-				case BOOLEAN: System.out.println("Boolean Value: " + cell.getBooleanCellValue());
-				break;
+				try {
+					
+					XSSFCell cell = row.getCell(j);
+					
+					switch(cell.getCellType()) {
+					
+					case STRING: System.out.println("String Value: " + cell.getStringCellValue());
+						break;
+					
+					case NUMERIC: System.out.println("Numeric Value: " + cell.getNumericCellValue());
+						break;
+					
+					case BOOLEAN: System.out.println("Boolean Value: " + cell.getBooleanCellValue());
+						break;
+					 	
+					default:
+						break;
+					}
+					
+				} catch (NullPointerException e) {
+					
+					 System.out.println("null");
 				}
 			}
+			System.out.println("All cells in row " + i + " have been read.");
 			System.out.println("");
-			System.out.println("A cells in row " + rows + " have been read.");
 		}
 		workbook.close();
 		
