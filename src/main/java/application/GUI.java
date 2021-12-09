@@ -8,21 +8,22 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import main.java.excelOperations.DemandTracker;
 
-public class DemandTracker extends Application { 
+public class GUI extends Application { 
 	
-	public static DemandTracker dt;
+	public static GUI gui;
 	private Stage window;
     private Parent root;
     private Scene scene;
     private Controller controller;
 	
-	public DemandTracker() {
-		dt = this;
+	public GUI() {
+		gui = this;
 	}
 
 	@Override
-	public void start(Stage primaryStage) throws Exception  {
+	public void start(Stage primaryStage) throws Exception {
 		
 		window = primaryStage;
 		
@@ -52,10 +53,5 @@ public class DemandTracker extends Application {
 			
 			e.printStackTrace();
 		}
-		
-		ExcelReader er = new ExcelReader();
-		
-		er.read(".\\datafiles\\21-11 Demand Sheet Puyallup.xlsx");
 	}
-	
 }
