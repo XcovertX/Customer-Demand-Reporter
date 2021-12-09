@@ -2,30 +2,21 @@ package main.java.application;
 
 import java.io.IOException;
 
-import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import main.java.excelOperations.DemandTracker;
 
-public class GUI extends Application { 
+public class GUI { 
 	
-	public static GUI gui;
 	private Stage window;
     private Parent root;
     private Scene scene;
     private Controller controller;
 	
 	public GUI() {
-		gui = this;
-	}
-
-	@Override
-	public void start(Stage primaryStage) throws Exception {
 		
-		window = primaryStage;
+		window = new Stage();
 		
 		try {
 			
@@ -43,7 +34,7 @@ public class GUI extends Application {
 			scene = new Scene(root);
 			scene.getStylesheets().add(getClass().getClassLoader().getResource("main.css").toExternalForm());
 			
-			controller = new Controller();
+			setController(new Controller());
 			
 			window.setTitle("Demand Tracker");
 			window.setScene(scene);
@@ -53,5 +44,15 @@ public class GUI extends Application {
 			
 			e.printStackTrace();
 		}
+	}
+
+	public Controller getController() {
+		
+		return controller;
+	}
+
+	public void setController(Controller controller) {
+		
+		this.controller = controller;
 	}
 }

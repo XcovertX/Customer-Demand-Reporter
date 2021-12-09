@@ -1,32 +1,34 @@
 package main.java.excelOperations;
 
 import java.io.IOException;
-
-import javafx.application.Application;
 import main.java.application.ExcelReader;
 import main.java.application.GUI;
 
 public class DemandTracker {
 	
-	private String excelFilePath = ".\\datafiles\\21-11 Demand Sheet Puyallup.xlsx";
+	private String excelFilePath;
+	private ExcelReader excelReader;
+	private ExcelWriter excelWriter;
+	private GUI gui;
 	
-	public DemandTracker(String[] args) {
+	public DemandTracker() {
 		
 		String date = java.time.LocalDate.now().toString();
 		System.out.println("Date: " + date);
 
-		ExcelReader er = new ExcelReader();
+		setExcelFilePath(".\\datafiles\\21-11 Demand Sheet Puyallup.xlsx");
+		setExcelWriter(new ExcelWriter());
+		setExcelReader(new ExcelReader());
+		setGui(new GUI());
 		
 		try {
 			
-			er.read(excelFilePath);
+			excelReader.read(excelFilePath);
 			
 		} catch (IOException e) {
 			
-			e.printStackTrace();
+			e.printStackTrace(); 
 		}
-		
-		Application.launch(GUI.class, args);
 	}
 
 	public String getExcelFilePath() {
@@ -38,6 +40,35 @@ public class DemandTracker {
 		
 		this.excelFilePath = excelFilePath;
 	}
-	
-	
+
+	public ExcelReader getExcelReader() {
+		
+		return excelReader;
+	}
+
+	public void setExcelReader(ExcelReader excelReader) {
+		
+		this.excelReader = excelReader;
+	}
+
+	public ExcelWriter getExcelWriter() {
+		
+		return excelWriter;
+	}
+
+	public void setExcelWriter(ExcelWriter excelWriter) {
+		
+		this.excelWriter = excelWriter;
+	}
+
+	public GUI getGui() 
+	{
+		return gui;
+	}
+
+
+	public void setGui(GUI gui) {
+		
+		this.gui = gui;
+	}
 }
