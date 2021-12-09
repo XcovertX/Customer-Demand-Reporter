@@ -1,6 +1,7 @@
 package main.java.excelOperations;
 
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 
 import org.apache.poi.xssf.usermodel.XSSFCell;
@@ -10,6 +11,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class Modifier {
 	
+	private XSSFWorkbook workbook;
 	private XSSFSheet sheet;
 	
 	public Modifier() { }
@@ -22,6 +24,7 @@ public class Modifier {
 		int numOfUnits = getNumOfUnits(rowNum);
 		incrementRented(rowNum, numOfUnits);
 		incrementSource(rowNum, sourceNum);
+		writeToFile(fileLocation);
 		
 	}
 	
@@ -144,12 +147,19 @@ public class Modifier {
 		
 		FileInputStream inputStream = new FileInputStream(fileLocation);
 		
-		XSSFWorkbook workbook = new XSSFWorkbook(inputStream);
+		workbook = new XSSFWorkbook(inputStream);
 		
 		sheet = workbook.getSheet(sheetName);
 
-		workbook.close();
+		inputStream.close();
+	}
+	
+	public void writeToFile(String fileLocation) throws IOException {
 		
+		FileOutputStream outputStream = new FileOutputStream(fileLocation);
+		workbook.write(outputStream);
+		workbook.close();
+		outputStream.close();
 	}
 
 }
