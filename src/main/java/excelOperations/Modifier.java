@@ -77,6 +77,19 @@ public class Modifier {
 		writeToFile(fileLocation);
 	}
 	
+	public void addDemand(String fileLocation, String unitSize, String unitType, String marketing) throws IOException {
+		
+		readFromFile(fileLocation);
+
+		int rowNum = locateRow(unitSize, unitType);
+		int sourceNum = getSource(marketing);
+		
+		incrementSource(rowNum, sourceNum);	
+		
+		evaluateCells();
+		writeToFile(fileLocation);
+	}
+	
 	private int locateRow(String unitSize, String unitType) {
 
 		int rows = inputTabSheet.getLastRowNum();

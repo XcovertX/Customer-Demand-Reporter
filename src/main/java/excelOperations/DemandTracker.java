@@ -27,8 +27,8 @@ public class DemandTracker {
 			
 //			mod.newRental(excelFilePath, "10x7.5", "Upper-Temp", "Call");
 //			mod.terminateRental(excelFilePath, "7x12", "Upper-Temp");
-			mod.transferRental(excelFilePath, "5x5", "Ground-Temp", "10x10", "Upper-Temp");
-			
+//			mod.transferRental(excelFilePath, "5x5", "Ground-Temp", "10x10", "Upper-Temp");
+			mod.addDemand(excelFilePath, "10x7.5", "Upper-Temp", "Call");
 			
 		} catch (IOException e) {
 			
