@@ -33,10 +33,48 @@ public class Modifier {
 		
 		readFromFile(fileLocation);
 		int rowNum = locateRow(unitSize, unitType);
-		int numOfUnits = getNumOfUnits(rowNum);
-		decrementRented(unitSize, unitType, rowNum, numOfUnits);
+		boolean transferring = false;
+		
+		decrementRented(unitSize, unitType, rowNum, transferring);
 		evaluateCells();
 		writeToFile(fileLocation);	
+	}
+	
+	public void transferRental(String fileLocation, 
+							   String unitSizeFrom, String unitTypeFrom,
+			 				   String unitSizeTo,   String unitTypeTo) throws IOException {
+		
+		readFromFile(fileLocation);
+		
+		int rowNumFrom = locateRow(unitSizeFrom, unitTypeFrom);
+		int rowNumTo = locateRow(unitSizeTo, unitTypeTo);
+		int numOfUnitsTo = getNumOfUnits(rowNumTo);
+		int noSource = -1;
+		boolean transferring = true;
+		int rentedColumn = 4;
+		
+		XSSFRow rowFrom = inputTabSheet.getRow(rowNumFrom);
+		XSSFCell cellFrom = rowFrom.getCell(rentedColumn);
+		
+		XSSFRow rowTo = inputTabSheet.getRow(rowNumTo);
+		XSSFCell cellTo = rowTo.getCell(rentedColumn);
+		
+		int newValueFrom = (int) (cellFrom.getNumericCellValue() - 1);
+		int newValueTo = (int) (cellTo.getNumericCellValue() + 1);
+		
+		if (newValueFrom >= 0 && newValueTo <= numOfUnitsTo) {
+			
+			decrementRented(unitSizeFrom, unitTypeFrom, rowNumFrom, transferring);
+			incrementRented(unitSizeTo, unitTypeTo, rowNumTo, numOfUnitsTo, noSource);
+			System.out.println("Transferred!");
+			
+		} else {
+			
+			System.out.println("Failed to transfer!");
+		}
+		
+		evaluateCells();
+		writeToFile(fileLocation);
 	}
 	
 	private int locateRow(String unitSize, String unitType) {
@@ -110,8 +148,13 @@ public class Modifier {
 		if (!(newValue > numOfUnits)) {
 			
 			cell.setCellValue( newValue );
-			incrementSource(rowNum, sourceNum);
-			incrementRentals(rowNum);
+			
+			if (sourceNum >= 0) {
+				
+				incrementSource(rowNum, sourceNum);
+				incrementRentals(rowNum);
+			}
+			
 			return 1;
 			
 		} else {
@@ -161,7 +204,7 @@ public class Modifier {
 		
 	}
 	
-	private int decrementRented(String unitSize, String unitType, int rowNum, int colNum) {
+	private int decrementRented(String unitSize, String unitType, int rowNum, boolean isTransferring) {
 		
 		int rentedColumn = 4;
 		
@@ -173,7 +216,11 @@ public class Modifier {
 		if (!(newValue < 0)) {
 			
 			cell.setCellValue(newValue);
-			incrementVacates(rowNum);
+			
+			if (!isTransferring) {
+				
+				incrementVacates(rowNum);
+			}
 			return 1;
 			
 		} else {
