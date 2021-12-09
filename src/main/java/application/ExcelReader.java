@@ -38,10 +38,10 @@ public class ExcelReader {
 					
 					switch(cell.getCellType()) {
 					
-					case STRING: System.out.println("String Value: " + cell.getStringCellValue());
+					case STRING: System.out.println("row: " + i + " | col: " + j + " | String Value: " + cell.getStringCellValue());
 						break;
 					
-					case NUMERIC: System.out.println("Numeric Value: " + cell.getNumericCellValue());
+					case NUMERIC: System.out.println("row: " + i + " | col: " + j + " | Numeric Value: " + cell.getNumericCellValue());
 						break;
 					
 					case BOOLEAN: System.out.println("Boolean Value: " + cell.getBooleanCellValue());
@@ -53,7 +53,7 @@ public class ExcelReader {
 					
 				} catch (NullPointerException e) {
 					
-					 System.out.println("null");
+					 System.out.println("row: " + i + " | col: " + j +" | null");
 				}
 			}
 			System.out.println("All cells in row " + i + " have been read.");
