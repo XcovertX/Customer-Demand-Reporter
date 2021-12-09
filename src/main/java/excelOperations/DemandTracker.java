@@ -21,32 +21,17 @@ public class DemandTracker {
 		setExcelReader(new ExcelReader());
 		setGui(new GUI());
 		
-		try {
-			
-			excelReader.read(excelFilePath);
-			
-		} catch (IOException e) {
-			
-			e.printStackTrace(); 
-		}
-		
 		Modifier mod = new Modifier();
+		
 		try {
 			
-			mod.newRental(excelFilePath, "10x10", "Upper-Temp", "Call");
+//			mod.newRental(excelFilePath, "10x7.5", "Upper-Temp", "Call");
+			mod.terminateRental(excelFilePath, "7x12", "Upper-Temp");
 			
 		} catch (IOException e) {
+			
 			System.out.println("Failed to modify the file.");
 			e.printStackTrace();
-		}
-		
-		try {
-			
-			excelReader.read(excelFilePath);
-			
-		} catch (IOException e) {
-			
-			e.printStackTrace(); 
 		}
 	}
 	

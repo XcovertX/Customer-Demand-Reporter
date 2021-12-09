@@ -5,6 +5,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFFormulaEvaluator;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -12,31 +13,41 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 public class Modifier {
 	
 	private XSSFWorkbook workbook;
-	private XSSFSheet sheet;
+	private XSSFSheet YTDDemandSummarySheet;
+	private XSSFSheet inputTabSheet;
 	
 	public Modifier() { }
 	
 	public void newRental(String fileLocation, String unitSize, String unitType, String marketing) throws IOException {
 		
-		setSheet(fileLocation, "Input Tab");
+		readFromFile(fileLocation);
 		int rowNum = locateRow(unitSize, unitType);
 		int sourceNum = getSource(marketing);
 		int numOfUnits = getNumOfUnits(rowNum);
-		incrementRented(rowNum, numOfUnits);
-		incrementSource(rowNum, sourceNum);
-		writeToFile(fileLocation);
+		incrementRented(unitSize, unitType, rowNum, numOfUnits, sourceNum);
+		evaluateCells();
+		writeToFile(fileLocation);	
+	}
+	
+	public void terminateRental(String fileLocation, String unitSize, String unitType) throws IOException {
 		
+		readFromFile(fileLocation);
+		int rowNum = locateRow(unitSize, unitType);
+		int numOfUnits = getNumOfUnits(rowNum);
+		decrementRented(unitSize, unitType, rowNum, numOfUnits);
+		evaluateCells();
+		writeToFile(fileLocation);	
 	}
 	
 	private int locateRow(String unitSize, String unitType) {
 
-		int rows = sheet.getLastRowNum();
+		int rows = inputTabSheet.getLastRowNum();
 		
 		for (int i = 5; i < rows; i++) {
 			
 			try {
 				
-				XSSFRow row = sheet.getRow(i);
+				XSSFRow row = inputTabSheet.getRow(i);
 				XSSFCell cell = row.getCell(1);
 				
 				if (unitSize.equals(cell.getStringCellValue())) {
@@ -56,30 +67,30 @@ public class Modifier {
 	
 	private int getNumOfUnits(int rowNum) {
 		
-		return (int) sheet.getRow(rowNum).getCell(3).getNumericCellValue();
+		return (int) inputTabSheet.getRow(rowNum).getCell(3).getNumericCellValue();
 	}
 	
-	public int getSource(String source) {
+	private int getSource(String source) {
 		
 		if(source.equals("Webform")) {
 			
-			return 4;
+			return 7;
 			
 		} else if(source.equals("Drive-By")) {
 			
-			return 5;
+			return 8;
 			
 		} else if(source.equals("Call")) {
 			
-			return 7;
+			return 10;
 			
 		} else if(source.equals("Refferal")) {
 			
-			return 8;
+			return 11;
 			
 		} else if(source.equals("Loyalty")) {
 			
-			return 9;
+			return 12;
 			
 		} else {
 			
@@ -87,47 +98,33 @@ public class Modifier {
 		}
 	}
 	
-	public int incrementRented(int rowNum, int numOfUnits) {
+	private int incrementRented(String unitSize, String unitType, int rowNum, int numOfUnits, int sourceNum) {
 		
-		XSSFRow row = sheet.getRow(rowNum);
-		XSSFCell cell = row.getCell(4);
+		int rentedColumn = 4;
+		
+		XSSFRow row = inputTabSheet.getRow(rowNum);
+		XSSFCell cell = row.getCell(rentedColumn);
 		
 		int newValue = (int) (cell.getNumericCellValue() + 1);
 		
 		if (!(newValue > numOfUnits)) {
 			
 			cell.setCellValue( newValue );
+			incrementSource(rowNum, sourceNum);
+			incrementRentals(rowNum);
 			return 1;
 			
 		} else {
 			
+			System.out.println("There are no more " + unitType + " " + unitSize + "'s available to rent.");
 			return 0;
 		}
 		
 	}
 	
-	public int decrementRented(int rowNum, int colNum) {
+	private int incrementSource(int rowNum, int colNum) {
 		
-		XSSFRow row = sheet.getRow(rowNum);
-		XSSFCell cell = row.getCell(colNum);
-		
-		int newValue = (int) (cell.getNumericCellValue() - 1);
-		
-		if (!(newValue < 0)) {
-			
-			cell.setCellValue( newValue );
-			return 1;
-			
-		} else {
-			
-			return 0;
-		}
-		
-	}
-	
-	public int incrementSource(int rowNum, int colNum) {
-		
-		XSSFRow row = sheet.getRow(rowNum);
+		XSSFRow row = inputTabSheet.getRow(rowNum);
 		XSSFCell cell = row.getCell(colNum);
 		
 		try {
@@ -143,23 +140,94 @@ public class Modifier {
 		}
 	}
 	
-	public void setSheet(String fileLocation, String sheetName) throws IOException {
+	private int incrementRentals(int rowNum) {
+		
+		int rentalsColumn = 14;
+		
+		XSSFRow row = inputTabSheet.getRow(rowNum);
+		XSSFCell cell = row.getCell(rentalsColumn);
+		
+		try {
+			
+			int newValue = (int) (cell.getNumericCellValue() + 1);
+			cell.setCellValue(newValue);
+			return 1;
+			
+		} catch (NullPointerException e) {
+			
+			cell.setCellValue(1);
+			return 0;
+		}
+		
+	}
+	
+	private int decrementRented(String unitSize, String unitType, int rowNum, int colNum) {
+		
+		int rentedColumn = 4;
+		
+		XSSFRow row = inputTabSheet.getRow(rowNum);
+		XSSFCell cell = row.getCell(rentedColumn);
+		
+		int newValue = (int) (cell.getNumericCellValue() - 1);
+		
+		if (!(newValue < 0)) {
+			
+			cell.setCellValue(newValue);
+			incrementVacates(rowNum);
+			return 1;
+			
+		} else {
+			
+			System.out.println("All of the " + unitType + " " + unitSize + "'s are currently available.");
+			return 0;
+		}
+		
+	}
+	
+	private int incrementVacates(int rowNum) {
+		
+		int rentalsColumn = 15;
+		
+		XSSFRow row = inputTabSheet.getRow(rowNum);
+		XSSFCell cell = row.getCell(rentalsColumn);
+		
+		try {
+			
+			int newValue = (int) (cell.getNumericCellValue() + 1);
+			cell.setCellValue(newValue);
+			return 1;
+			
+		} catch (NullPointerException e) {
+			
+			cell.setCellValue(1);
+			return 0;
+		}
+		
+	}
+	
+	private void readFromFile(String fileLocation) throws IOException {
 		
 		FileInputStream inputStream = new FileInputStream(fileLocation);
 		
 		workbook = new XSSFWorkbook(inputStream);
 		
-		sheet = workbook.getSheet(sheetName);
+		YTDDemandSummarySheet = workbook.getSheet("YTD Demand Summary");
+		inputTabSheet = workbook.getSheet("Input Tab");
 
 		inputStream.close();
 	}
 	
-	public void writeToFile(String fileLocation) throws IOException {
+	private void writeToFile(String fileLocation) throws IOException {
 		
 		FileOutputStream outputStream = new FileOutputStream(fileLocation);
 		workbook.write(outputStream);
 		workbook.close();
 		outputStream.close();
+	}
+	
+	private void evaluateCells() {
+		
+		XSSFFormulaEvaluator.evaluateAllFormulaCells(workbook);
 	}
 
 }
