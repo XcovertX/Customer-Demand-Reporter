@@ -20,8 +20,7 @@ public class Modifier {
 		int rowNum = locateRow(unitSize, unitType);
 		int sourceNum = getSource(marketing);
 		int numOfUnits = getNumOfUnits(rowNum);
-		int sizeCol = 1;
-		incrementRented(rowNum, sizeCol, numOfUnits);
+		incrementRented(rowNum, numOfUnits);
 		incrementSource(rowNum, sourceNum);
 		
 	}
@@ -38,6 +37,8 @@ public class Modifier {
 				XSSFCell cell = row.getCell(1);
 				
 				if (unitSize.equals(cell.getStringCellValue())) {
+					
+					cell = row.getCell(2);
 					
 					if (unitType.equals(cell.getStringCellValue())) {
 						
@@ -83,10 +84,10 @@ public class Modifier {
 		}
 	}
 	
-	public int incrementRented(int rowNum, int colNum, int numOfUnits) {
+	public int incrementRented(int rowNum, int numOfUnits) {
 		
 		XSSFRow row = sheet.getRow(rowNum);
-		XSSFCell cell = row.getCell(colNum);
+		XSSFCell cell = row.getCell(4);
 		
 		int newValue = (int) (cell.getNumericCellValue() + 1);
 		

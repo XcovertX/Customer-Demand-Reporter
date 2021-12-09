@@ -29,7 +29,28 @@ public class DemandTracker {
 			
 			e.printStackTrace(); 
 		}
+		
+		Modifier mod = new Modifier();
+		try {
+			
+			mod.newRental(excelFilePath, "10x10", "Upper-Temp", "Call");
+			
+		} catch (IOException e) {
+			System.out.println("Failed to modify the file.");
+			e.printStackTrace();
+		}
+		
+		try {
+			
+			excelReader.read(excelFilePath);
+			
+		} catch (IOException e) {
+			
+			e.printStackTrace(); 
+		}
 	}
+	
+	
 
 	public String getExcelFilePath() {
 		
