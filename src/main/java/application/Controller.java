@@ -39,6 +39,8 @@ public class Controller {
 		transferRentalButton.setSelected(false);
 		addDemandButton.setSelected(false);
 		
+		clearAllDropdowns();
+		
 		loadParkStoreDropdown();
 	}
 	
@@ -47,6 +49,8 @@ public class Controller {
 		newRentalButton.setSelected(false);
 		transferRentalButton.setSelected(false);
 		addDemandButton.setSelected(false);
+		
+		clearAllDropdowns();
 		
 		loadParkStoreDropdown();
 	}
@@ -57,6 +61,8 @@ public class Controller {
 		terminateRentalButton.setSelected(false);
 		addDemandButton.setSelected(false);
 		
+		clearAllDropdowns();
+		
 		loadParkStoreDropdown();
 	}
 	
@@ -65,6 +71,8 @@ public class Controller {
 		newRentalButton.setSelected(false);
 		terminateRentalButton.setSelected(false);
 		transferRentalButton.setSelected(false);
+		
+		clearAllDropdowns();
 		
 		loadParkStoreDropdown();
 	}
@@ -80,13 +88,21 @@ public class Controller {
 
 		    String selectedItem = parkStoreDropdown.getSelectionModel().getSelectedItem();
 
-		    if (selectedItem.equals("Storage")) {
+		    try {
 		    	
-		    	loadStorageSizeDropdown();
-		    
-		    } else if (selectedItem.equals("Parking")) {
+			    if (selectedItem.equals("Storage")) {
+			    	
+			    	loadStorageSizeDropdown();
+			    
+			    } else if (selectedItem.equals("Parking")) {
+			    	
+			    	loadParkingSizeDropdown();
+			    }
+			    
+		    } catch (NullPointerException e) {
 		    	
-		    	loadParkingSizeDropdown();
+		    	System.out.print("null");
+		    	
 		    }
 		});
 	}
@@ -188,6 +204,14 @@ public class Controller {
 		    loadSourceDropdown();
 
 		});
+	}
+	
+	private void clearAllDropdowns() {
+
+		clearDropdown(parkStoreDropdown);
+		clearDropdown(rentalSizeDropdown);
+		clearDropdown(rentalTypeDropdown);
+		clearDropdown(rentalSourceDropdown);
 	}
 	
 	private void clearDropdown(ChoiceBox<String> dropdown) {
