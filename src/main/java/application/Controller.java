@@ -33,14 +33,12 @@ public class Controller {
 	@FXML
 	private void initialize() {
 	
-
-
+		TableRow<String> row = new TableRow<>();
+		demandTracker.getItems().add(row);
 	}
 	
 	public void newRental(ActionEvent e) {
 		
-		TableRow<String> row = new TableRow<>();
-		demandTracker.getItems().add(row);
 		terminateRentalButton.setSelected(false);
 		transferRentalButton.setSelected(false);
 		addDemandButton.setSelected(false);
