@@ -7,6 +7,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.BorderPane;
 
 public class Controller {
@@ -15,8 +16,11 @@ public class Controller {
 	@FXML private ResourceBundle resources;
 	@FXML private BorderPane basePane;
 	
-	@FXML private Button newRentalButton;
-	@FXML private Button terminateRentalButton;
+	@FXML private ToggleButton newRentalButton;
+	@FXML private ToggleButton terminateRentalButton;
+	@FXML private ToggleButton transferRentalButton;
+	@FXML private ToggleButton addDemandButton;
+	@FXML private ChoiceBox<String> parkStoreDropdown;
 	@FXML private ChoiceBox<String> rentalSizeDropdown;
 	@FXML private ChoiceBox<String> rentalTypeDropdown;
 	@FXML private ChoiceBox<String> rentalSourceDropdown;
@@ -29,17 +33,69 @@ public class Controller {
 
 	}
 	
-	public void loadNewStorageRentalDropdowns(ActionEvent e) {
+	public void newRental(ActionEvent e) {
+		
+		terminateRentalButton.setSelected(false);
+		transferRentalButton.setSelected(false);
+		addDemandButton.setSelected(false);
+		
+		loadParkStoreDropdown();
+	}
+	
+	public void terminateRental(ActionEvent e) {
+		
+		newRentalButton.setSelected(false);
+		transferRentalButton.setSelected(false);
+		addDemandButton.setSelected(false);
+		
+		loadParkStoreDropdown();
+	}
+	
+	public void transferRental(ActionEvent e) {
+
+		newRentalButton.setSelected(false);
+		terminateRentalButton.setSelected(false);
+		addDemandButton.setSelected(false);
+		
+		loadParkStoreDropdown();
+	}
+	
+	public void addDemand(ActionEvent e) {
+
+		newRentalButton.setSelected(false);
+		terminateRentalButton.setSelected(false);
+		transferRentalButton.setSelected(false);
+		
+		loadParkStoreDropdown();
+	}
+	
+	private void loadParkStoreDropdown() {
+
+		clearDropdown(parkStoreDropdown);
+		
+		parkStoreDropdown.getItems().add("Storage");
+		parkStoreDropdown.getItems().add("Parking");
+		
+		parkStoreDropdown.setOnAction((event) -> {
+
+		    String selectedItem = parkStoreDropdown.getSelectionModel().getSelectedItem();
+
+		    if (selectedItem.equals("Storage")) {
+		    	
+		    	loadStorageSizeDropdown();
+		    
+		    } else if (selectedItem.equals("Parking")) {
+		    	
+		    	loadParkingSizeDropdown();
+		    }
+		});
+	}
+	
+	private void loadStorageSizeDropdown() {
 		
 		if (!(rentalSizeDropdown.getItems().size() == 16)) {
 			
-			rentalSizeDropdown.getSelectionModel().clearSelection();
-			
-			int itemListSize = rentalSizeDropdown.getItems().size();
-			
-			for (int i = 0; i < itemListSize; i++) {
-				rentalSizeDropdown.getItems().remove(0);
-			}
+			clearDropdown(rentalSizeDropdown);
 			
 			rentalSizeDropdown.getItems().add("5x5");
 			rentalSizeDropdown.getItems().add("7x5");
@@ -57,24 +113,53 @@ public class Controller {
 			rentalSizeDropdown.getItems().add("10x25");
 			rentalSizeDropdown.getItems().add("10x30");
 			rentalSizeDropdown.getItems().add("12x38");
+			
+			rentalSizeDropdown.setOnAction((event) -> {
+
+			    loadStorageTypeDropdown();
+
+			});
 		}
 		
 	}
 	
-	public void loadNewParkingRentalDropdowns(ActionEvent e) {
-	
-		if (!(rentalSizeDropdown.getItems().size() == 9)) {
+	private void loadStorageTypeDropdown() {
 		
-			rentalSizeDropdown.getSelectionModel().clearSelection();
+		clearDropdown(rentalTypeDropdown);
+		
+		rentalTypeDropdown.getItems().add("Ground-Temp");
+		rentalTypeDropdown.getItems().add("Upper-Temp");
+		rentalTypeDropdown.getItems().add("Exterior");
+		rentalTypeDropdown.getItems().add("Ext-Temp");
+		
+		rentalTypeDropdown.setOnAction((event) -> {
+
+		    loadSourceDropdown();
+
+		});
+	}
+	
+	private void loadSourceDropdown() {
+		
+		clearDropdown(rentalSourceDropdown);
+
+		rentalSourceDropdown.getItems().add("Webform");
+		rentalSourceDropdown.getItems().add("Drive-By");
+		rentalSourceDropdown.getItems().add("Call");
+		rentalSourceDropdown.getItems().add("Referral");
+		rentalSourceDropdown.getItems().add("Loyalty");
+	}
+	
+	private void loadParkingSizeDropdown() {
+	
+		if (!(rentalSizeDropdown.getItems().size() == 11)) {
 			
-			int itemListSize = rentalSizeDropdown.getItems().size();
-			
-			for (int i = 0; i < itemListSize; i++) {
-				rentalSizeDropdown.getItems().remove(0);
-			}
+			clearDropdown(rentalSizeDropdown);
 			
 			rentalSizeDropdown.getItems().add("10x16");
+			rentalSizeDropdown.getItems().add("10x25");
 			rentalSizeDropdown.getItems().add("10x29");
+			rentalSizeDropdown.getItems().add("10x30");
 			rentalSizeDropdown.getItems().add("10x32");
 			rentalSizeDropdown.getItems().add("10x35");
 			rentalSizeDropdown.getItems().add("10x40");
@@ -82,7 +167,38 @@ public class Controller {
 			rentalSizeDropdown.getItems().add("10x50");
 			rentalSizeDropdown.getItems().add("10x55");
 			rentalSizeDropdown.getItems().add("11x32");	
+			
+			rentalSizeDropdown.setOnAction((event) -> {
+
+			    loadParkingTypeDropdown();
+
+			});
 		}
+	}
+	
+	private void loadParkingTypeDropdown() {
 		
+		clearDropdown(rentalTypeDropdown);
+		
+		rentalTypeDropdown.getItems().add("Cov'd Pk");
+		rentalTypeDropdown.getItems().add("Non- Cov'd Pk");
+		
+		rentalTypeDropdown.setOnAction((event) -> {
+
+		    loadSourceDropdown();
+
+		});
+	}
+	
+	private void clearDropdown(ChoiceBox<String> dropdown) {
+		
+		dropdown.getSelectionModel().clearSelection();
+		
+		int itemListSize = dropdown.getItems().size();
+		
+		for (int i = 0; i < itemListSize; i++) {
+			
+			dropdown.getItems().remove(0);
+		}
 	}
 }

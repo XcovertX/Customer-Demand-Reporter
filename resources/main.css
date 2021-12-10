@@ -1,6 +1,6 @@
 /* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
 
-.button {
+.toggle-button {
 	-fx-text-fill: #F7F4E9;
 	-fx-background-color: #438945;
 	-fx-font-size: 15;
@@ -8,11 +8,15 @@
 	-fx-border-radius: 4px;
 }
 
-.button:hover {
+.toggle-button:hover {
 	-fx-background-color: #EBA63F;
 }
 
 .button:active {
+	-fx-background-color: #EBA63F;
+}
+
+.toggle-button:selected {
 	-fx-background-color: #EBA63F;
 }
 
