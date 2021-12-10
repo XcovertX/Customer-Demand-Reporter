@@ -7,6 +7,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.TableRow;
+import javafx.scene.control.TableView;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.BorderPane;
 
@@ -24,6 +26,7 @@ public class Controller {
 	@FXML private ChoiceBox<String> rentalSizeDropdown;
 	@FXML private ChoiceBox<String> rentalTypeDropdown;
 	@FXML private ChoiceBox<String> rentalSourceDropdown;
+	@FXML private TableView<TableRow<String>> demandTracker;
 	
 	public Controller() {}
 	
@@ -31,10 +34,13 @@ public class Controller {
 	private void initialize() {
 	
 
+
 	}
 	
 	public void newRental(ActionEvent e) {
 		
+		TableRow<String> row = new TableRow<>();
+		demandTracker.getItems().add(row);
 		terminateRentalButton.setSelected(false);
 		transferRentalButton.setSelected(false);
 		addDemandButton.setSelected(false);

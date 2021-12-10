@@ -7,6 +7,8 @@
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
@@ -15,78 +17,24 @@
 <BorderPane id="BasePane" prefHeight="618.0" prefWidth="1000.0" stylesheets="@main.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.application.Controller">
    <center>
       <BorderPane>
-         <top>
-            <MenuBar id="MainMenu" stylesheets="@main.css" BorderPane.alignment="CENTER">
-              <menus>
-                <Menu mnemonicParsing="false" text="File">
-                  <items>
-                    <MenuItem mnemonicParsing="false" text="Close" />
-                  </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="Edit">
-                  <items>
-                    <MenuItem mnemonicParsing="false" text="Delete" />
-                  </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="Help">
-                  <items>
-                    <MenuItem mnemonicParsing="false" text="About" />
-                  </items>
-                </Menu>
-              </menus>
-               <BorderPane.margin>
-                  <Insets bottom="1.0" />
-               </BorderPane.margin>
-            </MenuBar>
-         </top>
-         <left>
-            <VBox id="LeftVBox" prefHeight="593.0" prefWidth="230.0" stylesheets="@main.css" BorderPane.alignment="CENTER">
-               <children>
-                  <Label prefHeight="35.0" prefWidth="216.0" text="Storage">
-                     <VBox.margin>
-                        <Insets bottom="5.0" />
-                     </VBox.margin>
-                  </Label>
-                  <Separator layoutX="20.0" layoutY="240.0" prefHeight="0.0" prefWidth="210.0">
-                     <VBox.margin>
-                        <Insets bottom="5.0" top="5.0" />
-                     </VBox.margin>
-                  </Separator>
-                  <ToggleButton fx:id="newRentalButton" mnemonicParsing="false" onAction="#newRental" prefHeight="35.0" prefWidth="216.0" text="New Rental">
-                     <VBox.margin>
-                        <Insets bottom="5.0" top="5.0" />
-                     </VBox.margin>
+         <bottom>
+            <BorderPane id="MainPane" stylesheets="@main.css" BorderPane.alignment="CENTER">
+               <right>
+                  <ToggleButton mnemonicParsing="false" text="Submit" BorderPane.alignment="CENTER">
+                     <BorderPane.margin>
+                        <Insets bottom="10.0" right="10.0" top="10.0" />
+                     </BorderPane.margin>
                   </ToggleButton>
-                  <ToggleButton fx:id="terminateRentalButton" layoutX="20.0" layoutY="25.0" mnemonicParsing="false" onAction="#terminateRental" prefHeight="35.0" prefWidth="216.0" text="Terminate Rental">
-                     <VBox.margin>
-                        <Insets bottom="5.0" top="5.0" />
-                     </VBox.margin>
-                  </ToggleButton>
-                  <ToggleButton fx:id="transferRentalButton" layoutX="20.0" layoutY="65.0" mnemonicParsing="false" onAction="#transferRental" prefHeight="35.0" prefWidth="216.0" text="Transfer Rental">
-                     <VBox.margin>
-                        <Insets bottom="5.0" top="5.0" />
-                     </VBox.margin>
-                  </ToggleButton>
-                  <ToggleButton fx:id="addDemandButton" layoutX="20.0" layoutY="100.0" mnemonicParsing="false" onAction="#addDemand" prefHeight="35.0" prefWidth="216.0" text="Add Demand">
-                     <VBox.margin>
-                        <Insets bottom="5.0" top="5.0" />
-                     </VBox.margin>
-                  </ToggleButton>
-                  <Separator prefHeight="12.0" prefWidth="210.0" />
-                  <Label layoutX="20.0" layoutY="20.0" prefHeight="35.0" prefWidth="216.0" text="Parking" />
-               </children>
-               <padding>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-               </padding>
-               <BorderPane.margin>
-                  <Insets right="1.0" top="1.0" />
-               </BorderPane.margin>
-            </VBox>
-         </left>
-         <center>
-            <HBox id="MainPane" prefHeight="100.0" prefWidth="200.0" stylesheets="@main.css" BorderPane.alignment="CENTER">
+               </right>
                <BorderPane.margin>
                   <Insets left="1.0" top="1.0" />
+               </BorderPane.margin>
+            </BorderPane>
+         </bottom>
+         <top>
+            <HBox id="MainPane" prefHeight="100.0" prefWidth="200.0" stylesheets="@main.css" BorderPane.alignment="CENTER">
+               <BorderPane.margin>
+                  <Insets bottom="1.0" left="1.0" top="1.0" />
                </BorderPane.margin>
                <children>
                   <BorderPane layoutX="10.0" layoutY="10.0">
@@ -133,10 +81,103 @@
                   </BorderPane>
                </children>
             </HBox>
+         </top>
+         <center>
+            <BorderPane BorderPane.alignment="CENTER">
+               <BorderPane.margin>
+                  <Insets bottom="1.0" left="1.0" />
+               </BorderPane.margin>
+               <center>
+                  <TableView fx:id="demandTracker" prefHeight="200.0" prefWidth="200.0">
+                    <columns>
+                      <TableColumn prefWidth="51.0" text="Size" />
+                      <TableColumn prefWidth="112.0" text="Contact Date" />
+                        <TableColumn prefWidth="95.0" text="Need Date" />
+                        <TableColumn prefWidth="78.0" text="Source" />
+                        <TableColumn prefWidth="123.0" text="Name" />
+                        <TableColumn prefWidth="125.0" text="Phone/Email" />
+                        <TableColumn prefWidth="139.0" text="Notes" />
+                    </columns>
+                     <BorderPane.margin>
+                        <Insets top="1.0" />
+                     </BorderPane.margin>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </TableView>
+               </center>
+            </BorderPane>
          </center>
       </BorderPane>
    </center>
    <padding>
       <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
    </padding>
+   <left>
+      <VBox id="LeftVBox" prefHeight="593.0" prefWidth="230.0" stylesheets="@main.css" BorderPane.alignment="CENTER">
+         <children>
+            <Label prefHeight="80.0" prefWidth="210.0" text="Tracker Actions">
+               <VBox.margin>
+                  <Insets bottom="5.0" />
+               </VBox.margin>
+            </Label>
+            <Separator layoutX="20.0" layoutY="240.0" prefWidth="210.0" stylesheets="@main.css">
+               <VBox.margin>
+                  <Insets bottom="5.0" top="5.0" />
+               </VBox.margin>
+            </Separator>
+            <ToggleButton fx:id="newRentalButton" mnemonicParsing="false" onAction="#newRental" prefHeight="35.0" prefWidth="216.0" text="New Rental">
+               <VBox.margin>
+                  <Insets bottom="5.0" top="5.0" />
+               </VBox.margin>
+            </ToggleButton>
+            <ToggleButton fx:id="terminateRentalButton" layoutX="20.0" layoutY="25.0" mnemonicParsing="false" onAction="#terminateRental" prefHeight="35.0" prefWidth="216.0" text="Terminate Rental">
+               <VBox.margin>
+                  <Insets bottom="5.0" top="5.0" />
+               </VBox.margin>
+            </ToggleButton>
+            <ToggleButton fx:id="transferRentalButton" layoutX="20.0" layoutY="65.0" mnemonicParsing="false" onAction="#transferRental" prefHeight="35.0" prefWidth="216.0" text="Transfer Rental">
+               <VBox.margin>
+                  <Insets bottom="5.0" top="5.0" />
+               </VBox.margin>
+            </ToggleButton>
+            <ToggleButton fx:id="addDemandButton" layoutX="20.0" layoutY="100.0" mnemonicParsing="false" onAction="#addDemand" prefHeight="35.0" prefWidth="216.0" text="Add Demand">
+               <VBox.margin>
+                  <Insets bottom="5.0" top="5.0" />
+               </VBox.margin>
+            </ToggleButton>
+            <Separator prefHeight="12.0" prefWidth="210.0" />
+         </children>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+         <BorderPane.margin>
+            <Insets right="1.0" top="1.0" />
+         </BorderPane.margin>
+      </VBox>
+   </left>
+   <top>
+      <MenuBar id="MainMenu" stylesheets="@main.css" BorderPane.alignment="CENTER">
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Close" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Edit">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Delete" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem mnemonicParsing="false" text="About" />
+            </items>
+          </Menu>
+        </menus>
+         <BorderPane.margin>
+            <Insets bottom="1.0" />
+         </BorderPane.margin>
+      </MenuBar>
+   </top>
 </BorderPane>

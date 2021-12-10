@@ -69,3 +69,64 @@
 	-fx-font-Family: consolas;
 	-fx-text-fill: #F7F4E9;
 }
+
+.separator .line {
+	-fx-border-style: solid;
+	-fx-border-color: #1D1D2C;
+	-fx-border-width: 1px;
+}
+
+/*
+ * TableView
+ */
+
+.table-view .column-header-background .filler {
+	
+
+	
+}
+
+.table-view .column-header {
+	-fx-background-color: #438945;
+	-fx-font-size: 15;
+	-fx-font-Family: consolas;
+	-fx-text-fill: #F7F4E9;
+	-fx-border-style: solid;
+	-fx-border-color: #1D1D2C;
+	-fx-border-width: 1px;
+}
+	
+.table-view .column-header .label {
+	-fx-font-size: 15;
+	-fx-font-Family: consolas;
+	-fx-text-fill: #F7F4E9;
+}	
+
+.table-view .table-cell{
+    -fx-border-color: #438945;
+    -fx-padding: 2 0 2 10px;
+}
+.table-row-cell:hover {
+    -fx-background-color: #93f9b911;
+    -fx-text-background-color: red;
+}
+.table-row-cell:odd {
+    -fx-background-color: #93f9b911;
+    -fx-background-insets: 0, 0 0 1 0;
+    -fx-padding: 0.0em;
+}
+.table-row-cell:even {
+    -fx-background-color: #1dbbdd11;
+    -fx-background-insets: 0, 0 0 1 0;
+    -fx-padding: 0.0em;
+}
+
+.table-view .virtual-flow .scroll-bar:vertical,
+.table-view .virtual-flow .scroll-bar:vertical .track,
+.table-view .virtual-flow .scroll-bar:vertical .track-background,
+.table-view .virtual-flow .scroll-bar:horizontal,
+.table-view .virtual-flow .scroll-bar:horizontal .track,
+.table-view .virtual-flow .scroll-bar:horizontal .track-background {
+    -fx-background-color: #438945;
+}
+	
