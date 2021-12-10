@@ -8,6 +8,14 @@
 	-fx-border-radius: 4px;
 }
 
+.button:hover {
+	-fx-background-color: #EBA63F;
+}
+
+.button:active {
+	-fx-background-color: #EBA63F;
+}
+
 .choice-box {
 	-fx-text-fill: #F7F4E9;
 	-fx-background-color: #438945;
@@ -16,18 +24,25 @@
 	-fx-border-radius: 4px;
 }
 
-.button:hover {
-	-fx-border-color: #1D1D2C;
+.choice-box .label {
+	-fx-text-fill: #F7F4E9;
+	-fx-font-size: 15;
+	-fx-font-Family: consolas;
+	-fx-border-radius: 4px;
 }
 
-.button:active {
-	-fx-background-color: #EBA63F;
+.choice-box .menu-item:focused {
+  -fx-background-color: #EBA63F;
+}
+
+.choice-box .context-menu {
+    -fx-background-color: #438945;
 }
 	
 #LeftVBox {
 	-fx-text-fill: #bd0002;
 	-fx-control-inner-background: #ff874b;
-	-fx-background-color: #EBA63F;
+	-fx-background-color: #F7F4E9;
 }
 
 #BasePane {
@@ -37,7 +52,7 @@
 #MainPane {
 	-fx-text-fill: #bd0002;
 	-fx-control-inner-background: #ff874b;
-	-fx-background-color: #EBA63F;
+	-fx-background-color: #F7F4E9;
 }
 
 #MainMenu {

@@ -20,7 +20,7 @@ public class GUI {
 		
 		try {
 			
-			FXMLLoader fxmll =  new FXMLLoader( getClass().getClassLoader().getResource("Main.fxml"));
+			FXMLLoader fxmll =  new FXMLLoader(getClass().getClassLoader().getResource("Main.fxml"));
 			
 			try {
 				

@@ -10,8 +10,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-
-<BorderPane id="BasePane" prefHeight="618.0" prefWidth="1000.0" stylesheets="@main.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane id="BasePane" prefHeight="618.0" prefWidth="1000.0" stylesheets="@main.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.application.Controller">
    <center>
       <BorderPane>
          <top>
@@ -33,19 +32,32 @@
                   </items>
                 </Menu>
               </menus>
+               <BorderPane.margin>
+                  <Insets bottom="1.0" />
+               </BorderPane.margin>
             </MenuBar>
          </top>
          <left>
-            <VBox id="LeftVBox" prefHeight="593.0" prefWidth="172.0" stylesheets="@main.css" BorderPane.alignment="CENTER">
+            <VBox id="LeftVBox" prefHeight="593.0" prefWidth="230.0" stylesheets="@main.css" BorderPane.alignment="CENTER">
                <children>
-                  <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="162.0" text="New Rental">
+                  <Button mnemonicParsing="false" onAction="#loadNewStorageRentalDropdowns" prefHeight="35.0" prefWidth="216.0" text="New Storage Rental">
                      <VBox.margin>
-                        <Insets bottom="2.0" />
+                        <Insets bottom="5.0" />
                      </VBox.margin>
                   </Button>
-                  <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="166.0" text="New Termination">
+                  <Button mnemonicParsing="false" onAction="#loadNewParkingRentalDropdowns" prefHeight="35.0" prefWidth="216.0" text="New Parking Rental">
                      <VBox.margin>
-                        <Insets bottom="2.0" top="2.0" />
+                        <Insets bottom="5.0" top="5.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Button fx:id="terminateRentalButton" mnemonicParsing="false" prefHeight="35.0" prefWidth="216.0" text="New Storage Termination">
+                     <VBox.margin>
+                        <Insets bottom="5.0" top="5.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Button fx:id="terminateRentalButton1" layoutX="20.0" layoutY="110.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="216.0" text="New Parking Termination">
+                     <VBox.margin>
+                        <Insets bottom="5.0" top="5.0" />
                      </VBox.margin>
                   </Button>
                </children>
@@ -53,30 +65,21 @@
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
                <BorderPane.margin>
-                  <Insets top="5.0" />
+                  <Insets right="1.0" top="1.0" />
                </BorderPane.margin>
             </VBox>
          </left>
          <center>
-            <HBox id="MainPane" prefHeight="100.0" prefWidth="200.0" spacing="10.0" stylesheets="@main.css" BorderPane.alignment="CENTER">
+            <HBox id="MainPane" prefHeight="100.0" prefWidth="200.0" stylesheets="@main.css" BorderPane.alignment="CENTER">
                <BorderPane.margin>
-                  <Insets left="5.0" top="5.0" />
+                  <Insets left="1.0" top="1.0" />
                </BorderPane.margin>
                <children>
                   <BorderPane>
                      <top>
-                        <ChoiceBox id="ChoiceBox" prefHeight="35.0" prefWidth="185.0" stylesheets="@main.css" BorderPane.alignment="CENTER">
+                        <ChoiceBox fx:id="rentalSizeDropdown" prefHeight="35.0" prefWidth="185.0">
                            <BorderPane.margin>
                               <Insets left="10.0" right="5.0" top="10.0" />
-                           </BorderPane.margin>
-                        </ChoiceBox>
-                     </top>
-                  </BorderPane>
-                  <BorderPane>
-                     <top>
-                        <ChoiceBox prefHeight="35.0" prefWidth="185.0" BorderPane.alignment="CENTER">
-                           <BorderPane.margin>
-                              <Insets left="5.0" right="5.0" top="10.0" />
                            </BorderPane.margin>
                         </ChoiceBox>
                      </top>
@@ -86,7 +89,16 @@
                   </BorderPane>
                   <BorderPane>
                      <top>
-                        <ChoiceBox prefHeight="35.0" prefWidth="185.0" BorderPane.alignment="CENTER">
+                        <ChoiceBox fx:id="rentalTypeDropdown" prefHeight="35.0" prefWidth="185.0" BorderPane.alignment="CENTER">
+                           <BorderPane.margin>
+                              <Insets left="5.0" right="5.0" top="10.0" />
+                           </BorderPane.margin>
+                        </ChoiceBox>
+                     </top>
+                  </BorderPane>
+                  <BorderPane>
+                     <top>
+                        <ChoiceBox fx:id="rentalSourceDropdown" prefHeight="35.0" prefWidth="185.0" BorderPane.alignment="CENTER">
                            <BorderPane.margin>
                               <Insets left="5.0" right="5.0" top="10.0" />
                            </BorderPane.margin>
@@ -99,6 +111,6 @@
       </BorderPane>
    </center>
    <padding>
-      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+      <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
    </padding>
 </BorderPane>
