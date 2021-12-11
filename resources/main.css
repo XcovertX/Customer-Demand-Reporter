@@ -88,7 +88,7 @@
 
 .table-view .column-header {
 	-fx-background-color: #438945;
-	-fx-font-size: 15;
+	-fx-font-size: 10;
 	-fx-font-Family: consolas;
 	-fx-text-fill: #F7F4E9;
 	-fx-border-style: solid;
@@ -97,7 +97,7 @@
 }
 	
 .table-view .column-header .label {
-	-fx-font-size: 15;
+	-fx-font-size: 10;
 	-fx-font-Family: consolas;
 	-fx-text-fill: #F7F4E9;
 }	

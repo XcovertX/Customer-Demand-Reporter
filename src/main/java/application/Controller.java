@@ -1,15 +1,17 @@
 package main.java.application;
 
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 
 public class Controller {
@@ -26,15 +28,28 @@ public class Controller {
 	@FXML private ChoiceBox<String> rentalSizeDropdown;
 	@FXML private ChoiceBox<String> rentalTypeDropdown;
 	@FXML private ChoiceBox<String> rentalSourceDropdown;
-	@FXML private TableView<TableRow<String>> demandTracker;
+	@FXML private TableView<Entry> demandTracker;
+	@FXML private TextField nameTextField;
+	@FXML private TextField phoneEmailTextField;
+	@FXML private TextField emailTextField;
+	@FXML private TextField needByDateTextField;
+	@FXML private TextField notesTextField;
 	
 	public Controller() {}
 	
 	@FXML
 	private void initialize() {
-	
-		TableRow<String> row = new TableRow<>();
-		demandTracker.getItems().add(row);
+
+		demandTracker.getColumns().get(0).setCellValueFactory(new PropertyValueFactory<>("action"));
+		demandTracker.getColumns().get(1).setCellValueFactory(new PropertyValueFactory<>("size"));
+		demandTracker.getColumns().get(2).setCellValueFactory(new PropertyValueFactory<>("catagory"));
+		demandTracker.getColumns().get(3).setCellValueFactory(new PropertyValueFactory<>("contactDate"));
+		demandTracker.getColumns().get(4).setCellValueFactory(new PropertyValueFactory<>("needByDate"));
+		demandTracker.getColumns().get(5).setCellValueFactory(new PropertyValueFactory<>("source"));
+		demandTracker.getColumns().get(6).setCellValueFactory(new PropertyValueFactory<>("name"));
+		demandTracker.getColumns().get(7).setCellValueFactory(new PropertyValueFactory<>("phone"));
+		demandTracker.getColumns().get(8).setCellValueFactory(new PropertyValueFactory<>("email"));
+		demandTracker.getColumns().get(9).setCellValueFactory(new PropertyValueFactory<>("notes"));
 	}
 	
 	public void newRental(ActionEvent e) {
@@ -79,6 +94,56 @@ public class Controller {
 		clearAllDropdowns();
 		
 		loadParkStoreDropdown();
+	}
+	
+	public void submit() {
+		
+		String action = getSelectedAction();
+		String catagory = parkStoreDropdown.getSelectionModel().getSelectedItem();
+		String size = rentalSizeDropdown.getSelectionModel().getSelectedItem();
+		String type = rentalTypeDropdown.getSelectionModel().getSelectedItem();
+		LocalDate contactDate = LocalDate.now();
+		LocalDate needByDate = LocalDate.now(); // LocalDate.parse(needByDateTextField.getText());
+		String source = rentalSourceDropdown.getSelectionModel().getSelectedItem();
+		String name = nameTextField.getText();
+		String phone = phoneEmailTextField.getText();
+		String email = phoneEmailTextField.getText();
+		String notes = notesTextField.getText();
+		
+		Entry entry = new Entry(action, catagory, size, type, contactDate, needByDate, 
+				source, name, phone, email, notes);
+		
+		demandTracker.getItems().add(entry);
+		
+//		TableRow<Entry> row = new TableRow<>();
+//		
+//		row.getItem().setAction(action);
+//		row.getItem().setCatagory(catagory);
+//		row.getItem().setSize(size);
+//		row.getItem().setType(type);
+//		
+//		
+//		demandTracker.getItems().add(row);
+	}
+	
+	private String getSelectedAction() {
+		
+		if (newRentalButton.isSelected()) {
+			
+			return "Rental";
+			
+		} else if (terminateRentalButton.isSelected()) {
+			
+			return "Termination";
+			
+		} else if (transferRentalButton.isSelected()) {
+			
+			return "Transfer";
+			
+		} else {
+			
+			return "Demand";
+		}
 	}
 	
 	private void loadParkStoreDropdown() {
