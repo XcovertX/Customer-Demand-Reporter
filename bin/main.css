@@ -129,4 +129,39 @@
 .table-view .virtual-flow .scroll-bar:horizontal .track-background {
     -fx-background-color: #438945;
 }
+
+/*
+ * Labels
+ */
 	
+#surfaceLable {
+    -fx-background-color: #438945;
+	-fx-font-size: 15;
+	-fx-font-Family: consolas;
+	-fx-text-fill: #F7F4E9;
+}
+
+/*
+ * Text Fields
+ */
+.text-field {
+    -fx-background-color: #EBA63F;
+	-fx-font-size: 15;
+	-fx-font-Family: consolas;
+	-fx-text-fill: #F7F4E9;
+}
+
+/*
+ * Text Areas
+ */
+.text-area {
+    -fx-background-color: #438945;
+	-fx-font-size: 15;
+	-fx-font-Family: consolas;
+	-fx-text-fill: #F7F4E9;
+ }
+ 
+.text-area .content {
+    -fx-background-color: #EBA63F;
+    -fx-border-color: #EBA63F;
+ }
