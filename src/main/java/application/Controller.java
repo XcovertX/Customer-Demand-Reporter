@@ -2,11 +2,14 @@ package main.java.application;
 
 import java.net.URL;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -32,14 +35,16 @@ public class Controller {
 	@FXML private TextField nameTextField;
 	@FXML private TextField phoneTextField;
 	@FXML private TextField emailTextField;
-	@FXML private TextField needByDateTextField;
+	@FXML private DatePicker needByDatePicker;
 	@FXML private TextArea notesTextArea;
+	
+	public int count = 0;
 	
 	public Controller() {}
 	
 	@FXML
 	private void initialize() {
-
+		
 		demandTracker.getColumns().get(0).setCellValueFactory(new PropertyValueFactory<>("action"));
 		demandTracker.getColumns().get(1).setCellValueFactory(new PropertyValueFactory<>("size"));
 		demandTracker.getColumns().get(2).setCellValueFactory(new PropertyValueFactory<>("catagory"));
@@ -102,8 +107,8 @@ public class Controller {
 		String catagory = parkStoreDropdown.getSelectionModel().getSelectedItem();
 		String size = rentalSizeDropdown.getSelectionModel().getSelectedItem();
 		String type = rentalTypeDropdown.getSelectionModel().getSelectedItem();
-		LocalDate contactDate = LocalDate.now();
-		LocalDate needByDate = LocalDate.now(); // LocalDate.parse(needByDateTextField.getText());
+		String contactDate = LocalDate.now().toString();
+		String needByDate = needByDatePicker.getValue().toString();
 		String source = rentalSourceDropdown.getSelectionModel().getSelectedItem();
 		String name = getNameText();
 		String phone = getPhoneText();
@@ -208,7 +213,7 @@ public class Controller {
 			    
 		    } catch (NullPointerException e) {
 		    	
-		    	System.out.print("null");
+		    	System.out.println("catagory selection is null");
 		    	
 		    }
 		});
@@ -216,7 +221,7 @@ public class Controller {
 	
 	private void loadStorageSizeDropdown() {
 		
-		if (!(rentalSizeDropdown.getItems().size() == 16)) {
+		if (parkStoreDropdown.getSelectionModel().getSelectedItem().equals("Storage")) {
 			
 			clearDropdown(rentalSizeDropdown);
 			
@@ -236,6 +241,7 @@ public class Controller {
 			rentalSizeDropdown.getItems().add("10x25");
 			rentalSizeDropdown.getItems().add("10x30");
 			rentalSizeDropdown.getItems().add("12x38");
+			rentalSizeDropdown.getItems().add("12x43");
 			
 			rentalSizeDropdown.setOnAction((event) -> {
 
@@ -250,16 +256,96 @@ public class Controller {
 		
 		clearDropdown(rentalTypeDropdown);
 		
-		rentalTypeDropdown.getItems().add("Ground-Temp");
-		rentalTypeDropdown.getItems().add("Upper-Temp");
-		rentalTypeDropdown.getItems().add("Exterior");
-		rentalTypeDropdown.getItems().add("Ext-Temp");
+		String catagorySelection = parkStoreDropdown.getSelectionModel().getSelectedItem();
 		
+		try {
+			
+			if (catagorySelection.equals("Storage")) {
+				
+				addStorageDropdownItems();
+			}
+			
+		} catch (NullPointerException e) {
+			
+			System.out.println("type selection null");
+		}
+
 		rentalTypeDropdown.setOnAction((event) -> {
 
 		    loadSourceDropdown();
 
 		});
+	}
+	
+	private void addStorageDropdownItems() {
+		
+		String sizeSelection = rentalSizeDropdown.getSelectionModel().getSelectedItem();
+		
+		try {
+			
+			if (sizeSelection.equals("10x30") || sizeSelection.equals("10x20")) {
+	
+				rentalTypeDropdown.getItems().add("Exterior");
+			}
+			
+			if (sizeSelection.equals("12x38") || sizeSelection.equals("12x43")) {
+	
+				rentalTypeDropdown.getItems().add("Ext-Temp");
+			}
+			
+			if (sizeSelection.equals("5x5")   || sizeSelection.equals("7x12")  ||
+			    sizeSelection.equals("10x5")  || sizeSelection.equals("10x7")  ||
+			    sizeSelection.equals("10x10") || sizeSelection.equals("10x12") ||
+			    sizeSelection.equals("10x12") || sizeSelection.equals("10x15") ||
+			    sizeSelection.equals("10x18") || sizeSelection.equals("10x20") ||
+			    sizeSelection.equals("10x25") || sizeSelection.equals("10x30")) {
+	
+				rentalTypeDropdown.getItems().add("Ground-Temp");
+			}
+			
+			if (sizeSelection.equals("5x5")   || sizeSelection.equals("10x7.5")||
+				sizeSelection.equals("7x5")   || sizeSelection.equals("7x7")   ||
+				sizeSelection.equals("10x5")  || sizeSelection.equals("10x7")  ||
+		        sizeSelection.equals("10x10") || sizeSelection.equals("7x12")  ||
+			    sizeSelection.equals("10x13") || sizeSelection.equals("10x12") || 
+			    sizeSelection.equals("10x18") || sizeSelection.equals("10x20") ||
+			    sizeSelection.equals("10x25") || sizeSelection.equals("10x30") ||
+			    sizeSelection.equals("10x15")) {
+	
+				 rentalTypeDropdown.getItems().add("Upper-Temp");
+			}
+			
+		} catch (NullPointerException e) {
+			
+			System.out.println("size selection is null.");
+		}
+	}
+	
+	private void addParkingDropdownItems() {
+		
+		String sizeSelection = rentalSizeDropdown.getSelectionModel().getSelectedItem();
+		
+		try {
+			
+			if (sizeSelection.equals("10x16") || sizeSelection.equals("10x30")) {
+	
+				rentalTypeDropdown.getItems().add("Non- Cov'd Pk");
+			}
+			
+			if (sizeSelection.equals("10x16") || sizeSelection.equals("10x25") ||
+			    sizeSelection.equals("10x29") || sizeSelection.equals("10x30") ||
+			    sizeSelection.equals("10x32") || sizeSelection.equals("10x35") ||
+			    sizeSelection.equals("10x40") || sizeSelection.equals("10x45") ||
+			    sizeSelection.equals("10x50") || sizeSelection.equals("10x55") ||
+			    sizeSelection.equals("11x32")) {
+	
+				rentalTypeDropdown.getItems().add("Cov'd Pk");
+			}
+			
+		} catch (NullPointerException e) {
+			
+			System.out.println("size selection is null.");
+		}
 	}
 	
 	private void loadSourceDropdown() {
@@ -275,7 +361,7 @@ public class Controller {
 	
 	private void loadParkingSizeDropdown() {
 	
-		if (!(rentalSizeDropdown.getItems().size() == 11)) {
+		if (parkStoreDropdown.getSelectionModel().getSelectedItem().equals("Parking")) {
 			
 			clearDropdown(rentalSizeDropdown);
 			
@@ -302,9 +388,20 @@ public class Controller {
 	private void loadParkingTypeDropdown() {
 		
 		clearDropdown(rentalTypeDropdown);
+
+		String catagorySelection = parkStoreDropdown.getSelectionModel().getSelectedItem();
 		
-		rentalTypeDropdown.getItems().add("Cov'd Pk");
-		rentalTypeDropdown.getItems().add("Non- Cov'd Pk");
+		try {
+		
+			if (catagorySelection.equals("Parking")) {
+				
+				addParkingDropdownItems();
+			}
+			
+		} catch (NullPointerException e) {
+			
+			System.out.println("type selection is null.");
+		}
 		
 		rentalTypeDropdown.setOnAction((event) -> {
 

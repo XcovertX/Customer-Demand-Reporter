@@ -8,15 +8,15 @@ public class Entry {
 	private String catagory;
 	private String size;
 	private String type;
-	private LocalDate contactDate;
-	private LocalDate needByDate;
+	private String contactDate;
+	private String needByDate;
 	private String source;
 	private String name;
 	private String phone;
 	private String email;
 	private String notes;
 	
-	public Entry(String action, String catagory, String size, String type, LocalDate contactDate, LocalDate needByDate,
+	public Entry(String action, String catagory, String size, String type, String contactDate, String needByDate,
 			String source, String name, String phone, String email, String notes) {
 		super();
 		this.action = action;
@@ -72,22 +72,22 @@ public class Entry {
 		this.type = type;
 	}
 	
-	public LocalDate getContactDate() {
+	public String getContactDate() {
 		
 		return contactDate;
 	}
 	
-	public void setContactDate(LocalDate contactDate) {
+	public void setContactDate(String contactDate) {
 		
 		this.contactDate = contactDate;
 	}
 	
-	public LocalDate getNeedByDate() {
+	public String getNeedByDate() {
 		
 		return needByDate;
 	}
 	
-	public void setNeedByDate(LocalDate needByDate) {
+	public void setNeedByDate(String needByDate) {
 		
 		this.needByDate = needByDate;
 	}
