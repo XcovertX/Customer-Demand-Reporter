@@ -104,7 +104,7 @@
 
 .table-view .table-cell {
     -fx-border-color: #438945;
-    -fx-padding: 2 0 2 10px;
+    -fx-padding: 2 0 2 5px;
 }
 .table-row-cell:hover {
     -fx-text-background-color: #3F84EB;

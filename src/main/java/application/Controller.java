@@ -105,15 +105,63 @@ public class Controller {
 		LocalDate contactDate = LocalDate.now();
 		LocalDate needByDate = LocalDate.now(); // LocalDate.parse(needByDateTextField.getText());
 		String source = rentalSourceDropdown.getSelectionModel().getSelectedItem();
-		String name = nameTextField.getText();
-		String phone = phoneTextField.getText();
-		String email = emailTextField.getText();
-		String notes = notesTextArea.getText();
+		String name = getNameText();
+		String phone = getPhoneText();
+		String email = getEmailText();
+		String notes = getNotesText();
 		
 		Entry entry = new Entry(action, catagory, size, type, contactDate, needByDate, 
 				source, name, phone, email, notes);
 		
 		demandTracker.getItems().add(entry);
+	}
+	
+	private String getNameText() {
+		
+		String entry = nameTextField.getText();
+			
+		if (entry.equals("")) {
+			
+			entry = "unknown";
+		}
+		
+		return entry;
+	}
+	
+	private String getPhoneText() {
+		
+		String entry = phoneTextField.getText();
+		
+		if (entry.equals("")) {
+			
+			entry = "unknown";
+		}
+		
+		return entry;
+	}
+	
+	private String getEmailText() {
+		
+		String entry = emailTextField.getText();
+		
+		if (entry.equals("")) {
+			
+			entry = "unknown";
+		}
+		
+		return entry;
+	}
+	
+	private String getNotesText() {
+		
+		String entry = notesTextArea.getText();
+		
+		if (entry.equals("")) {
+			
+			entry = "none";
+		}
+		
+		return entry;
 	}
 	
 	private String getSelectedAction() {
