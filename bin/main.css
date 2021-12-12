@@ -3,7 +3,7 @@
 .toggle-button {
 	-fx-text-fill: #F7F4E9;
 	-fx-background-color: #438945;
-	-fx-font-size: 15;
+	-fx-font-size: 10;
 	-fx-font-Family: consolas;
 	-fx-border-radius: 4px;
 }
@@ -23,14 +23,14 @@
 .choice-box {
 	-fx-text-fill: #F7F4E9;
 	-fx-background-color: #438945;
-	-fx-font-size: 15;
+	-fx-font-size: 10;
 	-fx-font-Family: consolas;
 	-fx-border-radius: 4px;
 }
 
 .choice-box .label {
 	-fx-text-fill: #F7F4E9;
-	-fx-font-size: 15;
+	-fx-font-size: 10;
 	-fx-font-Family: consolas;
 	-fx-border-radius: 4px;
 }
@@ -65,7 +65,7 @@
 }
 
 #MainMenu .label {
-	-fx-font-size: 15;
+	-fx-font-size: 10;
 	-fx-font-Family: consolas;
 	-fx-text-fill: #F7F4E9;
 }
@@ -102,13 +102,13 @@
 	-fx-text-fill: #F7F4E9;
 }	
 
-.table-view .table-cell{
+.table-view .table-cell {
     -fx-border-color: #438945;
     -fx-padding: 2 0 2 10px;
 }
 .table-row-cell:hover {
-    -fx-background-color: #93f9b911;
-    -fx-text-background-color: red;
+    -fx-text-background-color: #3F84EB;
+    -fx-font-weight: bold;
 }
 .table-row-cell:odd {
     -fx-background-color: #93f9b911;
@@ -116,9 +116,13 @@
     -fx-padding: 0.0em;
 }
 .table-row-cell:even {
-    -fx-background-color: #1dbbdd11;
+    -fx-background-color: #a0d1a1;
     -fx-background-insets: 0, 0 0 1 0;
     -fx-padding: 0.0em;
+}
+.table-row-cell:selected {
+    -fx-background-color: #EBA63F;
+	-fx-text-fill: #F7F4E9;
 }
 
 .table-view .virtual-flow .scroll-bar:vertical,
@@ -134,9 +138,9 @@
  * Labels
  */
 	
-#surfaceLable {
-    -fx-background-color: #438945;
-	-fx-font-size: 15;
+#surfaceLabel {
+    -fx-background-color: #29542A;
+	-fx-font-size: 10;
 	-fx-font-Family: consolas;
 	-fx-text-fill: #F7F4E9;
 }
@@ -146,7 +150,7 @@
  */
 .text-field {
     -fx-background-color: #EBA63F;
-	-fx-font-size: 15;
+	-fx-font-size: 10;
 	-fx-font-Family: consolas;
 	-fx-text-fill: #F7F4E9;
 }
@@ -156,7 +160,7 @@
  */
 .text-area {
     -fx-background-color: #438945;
-	-fx-font-size: 15;
+	-fx-font-size: 10;
 	-fx-font-Family: consolas;
 	-fx-text-fill: #F7F4E9;
  }

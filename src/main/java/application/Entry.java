@@ -35,8 +35,6 @@ public class Entry {
 		this.notes = notes;
 	}
 
-
-
 	public void setAction(String action) {
 		this.action = action;
 	}

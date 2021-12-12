@@ -9,6 +9,7 @@
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.layout.BorderPane?>
@@ -38,7 +39,7 @@
                                           <Insets bottom="10.0" left="10.0" right="5.0" top="10.0" />
                                        </BorderPane.margin>
                                        <children>
-                                          <Label id="surfaceLable" prefHeight="28.0" prefWidth="185.0" text="Unit Catagory">
+                                          <Label id="surfaceLabel" prefHeight="28.0" prefWidth="185.0" text="Unit Catagory">
                                              <VBox.margin>
                                                 <Insets bottom="5.0" />
                                              </VBox.margin>
@@ -46,10 +47,9 @@
                                                 <Insets left="10.0" right="10.0" />
                                              </padding>
                                           </Label>
-                                          <Separator prefHeight="12.0" prefWidth="210.0" />
-                                          <ChoiceBox fx:id="parkStoreDropdown" prefHeight="35.0" prefWidth="185.0">
+                                          <ChoiceBox fx:id="parkStoreDropdown" prefHeight="28.0" prefWidth="185.0">
                                              <VBox.margin>
-                                                <Insets top="5.0" />
+                                                <Insets />
                                              </VBox.margin>
                                           </ChoiceBox>
                                        </children>
@@ -69,7 +69,7 @@
                                           <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
                                        </BorderPane.margin>
                                        <children>
-                                          <Label id="surfaceLable" prefHeight="28.0" prefWidth="185.0" text="Unit Size">
+                                          <Label id="surfaceLabel" prefHeight="28.0" prefWidth="185.0" text="Unit Size">
                                              <VBox.margin>
                                                 <Insets bottom="5.0" />
                                              </VBox.margin>
@@ -77,10 +77,9 @@
                                                 <Insets left="10.0" right="10.0" />
                                              </padding>
                                           </Label>
-                                          <Separator prefHeight="12.0" prefWidth="210.0" />
-                                          <ChoiceBox fx:id="rentalSizeDropdown" prefHeight="35.0" prefWidth="185.0">
+                                          <ChoiceBox fx:id="rentalSizeDropdown" prefHeight="28.0" prefWidth="185.0">
                                              <VBox.margin>
-                                                <Insets top="5.0" />
+                                                <Insets />
                                              </VBox.margin>
                                           </ChoiceBox>
                                        </children>
@@ -97,7 +96,7 @@
                                           <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
                                        </BorderPane.margin>
                                        <children>
-                                          <Label id="surfaceLable" prefHeight="28.0" prefWidth="185.0" text="Unit Type">
+                                          <Label id="surfaceLabel" prefHeight="28.0" prefWidth="185.0" text="Unit Type">
                                              <VBox.margin>
                                                 <Insets bottom="5.0" />
                                              </VBox.margin>
@@ -105,10 +104,9 @@
                                                 <Insets left="10.0" right="10.0" />
                                              </padding>
                                           </Label>
-                                          <Separator prefHeight="12.0" prefWidth="210.0" />
-                                          <ChoiceBox fx:id="rentalTypeDropdown" prefHeight="35.0" prefWidth="185.0">
+                                          <ChoiceBox fx:id="rentalTypeDropdown" prefHeight="28.0" prefWidth="185.0">
                                              <VBox.margin>
-                                                <Insets top="5.0" />
+                                                <Insets />
                                              </VBox.margin>
                                           </ChoiceBox>
                                        </children>
@@ -128,7 +126,7 @@
                                           <Insets bottom="10.0" left="5.0" right="10.0" top="10.0" />
                                        </BorderPane.margin>
                                        <children>
-                                          <Label id="surfaceLable" prefHeight="28.0" prefWidth="185.0" text="Source">
+                                          <Label id="surfaceLabel" prefHeight="28.0" prefWidth="185.0" text="Source">
                                              <VBox.margin>
                                                 <Insets bottom="5.0" />
                                              </VBox.margin>
@@ -136,10 +134,9 @@
                                                 <Insets left="10.0" right="10.0" />
                                              </padding>
                                           </Label>
-                                          <Separator prefHeight="12.0" prefWidth="210.0" />
-                                          <ChoiceBox fx:id="rentalSourceDropdown" prefHeight="35.0" prefWidth="185.0">
+                                          <ChoiceBox fx:id="rentalSourceDropdown" prefHeight="28.0" prefWidth="185.0">
                                              <VBox.margin>
-                                                <Insets top="5.0" />
+                                                <Insets />
                                              </VBox.margin>
                                           </ChoiceBox>
                                        </children>
@@ -152,12 +149,15 @@
                            </children>
                         </HBox>
                      </top>
-                     <left>
-                        <VBox BorderPane.alignment="CENTER">
-                           <children>
-                              <HBox>
+                     <bottom>
+                        <BorderPane BorderPane.alignment="CENTER">
+                           <BorderPane.margin>
+                              <Insets bottom="10.0" right="10.0" />
+                           </BorderPane.margin>
+                           <left>
+                              <HBox BorderPane.alignment="CENTER">
                                  <children>
-                                    <Label id="surfaceLable" prefHeight="35.0" text="Name :">
+                                    <Label id="surfaceLabel" prefHeight="28.0" prefWidth="105.0" text="Notes :">
                                        <HBox.margin>
                                           <Insets left="10.0" right="5.0" />
                                        </HBox.margin>
@@ -165,12 +165,45 @@
                                           <Insets left="10.0" right="10.0" />
                                        </padding>
                                     </Label>
-                                    <TextField fx:id="nameTextField" prefHeight="35.0" prefWidth="209.0">
+                                    <TextArea fx:id="notesTextArea" prefHeight="107.0" prefWidth="627.0" />
+                                 </children>
+                              </HBox>
+                           </left>
+                           <bottom>
+                              <BorderPane BorderPane.alignment="CENTER">
+                                 <BorderPane.margin>
+                                    <Insets left="5.0" />
+                                 </BorderPane.margin>
+                                 <right>
+                                    <ToggleButton mnemonicParsing="false" onAction="#submit" prefHeight="28.0" prefWidth="185.0" text="Submit" BorderPane.alignment="CENTER">
+                                       <BorderPane.margin>
+                                          <Insets top="5.0" />
+                                       </BorderPane.margin>
+                                    </ToggleButton>
+                                 </right>
+                              </BorderPane>
+                           </bottom>
+                        </BorderPane>
+                     </bottom>
+                     <center>
+                        <VBox BorderPane.alignment="CENTER">
+                           <children>
+                              <HBox>
+                                 <children>
+                                    <Label id="surfaceLabel" prefHeight="28.0" prefWidth="109.0" text="Name :">
+                                       <HBox.margin>
+                                          <Insets left="10.0" right="5.0" />
+                                       </HBox.margin>
+                                       <padding>
+                                          <Insets left="10.0" right="10.0" />
+                                       </padding>
+                                    </Label>
+                                    <TextField fx:id="nameTextField" prefHeight="28.0" prefWidth="285.0">
                                        <HBox.margin>
                                           <Insets right="5.0" />
                                        </HBox.margin>
                                     </TextField>
-                                    <Label id="surfaceLable" prefHeight="35.0" text="Phone / Email :">
+                                    <Label id="surfaceLabel" prefHeight="28.0" prefWidth="63.0" text="Email :">
                                        <HBox.margin>
                                           <Insets right="5.0" />
                                        </HBox.margin>
@@ -178,9 +211,9 @@
                                           <Insets left="10.0" right="10.0" />
                                        </padding>
                                     </Label>
-                                    <TextField fx:id="phoneEmailTextField" layoutX="10.0" layoutY="10.0" prefHeight="35.0" prefWidth="298.0">
+                                    <TextField fx:id="emailTextField" layoutX="10.0" layoutY="10.0" prefHeight="28.0" prefWidth="279.0">
                                        <HBox.margin>
-                                          <Insets right="10.0" />
+                                          <Insets />
                                        </HBox.margin>
                                     </TextField>
                                  </children>
@@ -190,7 +223,7 @@
                               </HBox>
                               <HBox>
                                  <children>
-                                    <Label id="surfaceLable" prefHeight="35.0" text="Notes :">
+                                    <Label id="surfaceLabel" prefHeight="28.0" prefWidth="107.0" text="Contact Date :">
                                        <HBox.margin>
                                           <Insets left="10.0" right="5.0" />
                                        </HBox.margin>
@@ -198,28 +231,45 @@
                                           <Insets left="10.0" right="10.0" />
                                        </padding>
                                     </Label>
-                                    <TextField fx:id="notesTextField" prefHeight="35.0" prefWidth="653.0" />
+                                    <TextField fx:id="nameTextField1" prefHeight="28.0" prefWidth="138.0">
+                                       <HBox.margin>
+                                          <Insets right="5.0" />
+                                       </HBox.margin>
+                                    </TextField>
+                                    <Label id="surfaceLabel" prefHeight="28.0" prefWidth="114.0" text="Need By Date :">
+                                       <HBox.margin>
+                                          <Insets right="5.0" />
+                                       </HBox.margin>
+                                       <padding>
+                                          <Insets left="10.0" right="10.0" />
+                                       </padding>
+                                    </Label>
+                                    <TextField fx:id="phoneEmailTextField1" layoutX="10.0" layoutY="10.0" prefHeight="28.0" prefWidth="155.0">
+                                       <HBox.margin>
+                                          <Insets right="5.0" />
+                                       </HBox.margin>
+                                    </TextField>
+                                    <Label id="surfaceLabel" prefHeight="28.0" prefWidth="63.0" text="Phone :">
+                                       <padding>
+                                          <Insets left="10.0" right="10.0" />
+                                       </padding>
+                                       <HBox.margin>
+                                          <Insets right="5.0" />
+                                       </HBox.margin>
+                                    </Label>
+                                    <TextField fx:id="phoneTextField" prefHeight="28.0" prefWidth="145.0">
+                                       <HBox.margin>
+                                          <Insets />
+                                       </HBox.margin>
+                                    </TextField>
                                  </children>
-                                 <VBox.margin>
-                                    <Insets top="5.0" />
-                                 </VBox.margin>
                               </HBox>
                            </children>
                            <BorderPane.margin>
-                              <Insets bottom="10.0" />
+                              <Insets bottom="5.0" right="10.0" />
                            </BorderPane.margin>
                         </VBox>
-                     </left>
-                     <bottom>
-                        <BorderPane BorderPane.alignment="CENTER">
-                           <BorderPane.margin>
-                              <Insets bottom="10.0" right="10.0" top="10.0" />
-                           </BorderPane.margin>
-                           <right>
-                              <ToggleButton mnemonicParsing="false" onAction="#submit" text="Submit" BorderPane.alignment="CENTER" />
-                           </right>
-                        </BorderPane>
-                     </bottom>
+                     </center>
                   </BorderPane>
                </center>
                <left>
@@ -230,7 +280,7 @@
                      <center>
                         <VBox id="LeftVBox" stylesheets="@main.css">
                            <children>
-                              <Label id="surfaceLable" prefHeight="28.0" prefWidth="216.0" text="Tracker Actions">
+                              <Label id="surfaceLabel" prefHeight="28.0" prefWidth="216.0" text="Tracker Actions">
                                  <VBox.margin>
                                     <Insets bottom="5.0" />
                                  </VBox.margin>
@@ -243,26 +293,37 @@
                                     <Insets bottom="5.0" top="5.0" />
                                  </VBox.margin>
                               </Separator>
-                              <ToggleButton fx:id="newRentalButton" mnemonicParsing="false" onAction="#newRental" prefHeight="35.0" prefWidth="216.0" text="New Rental">
+                              <ToggleButton fx:id="newRentalButton" mnemonicParsing="false" onAction="#newRental" prefHeight="28.0" prefWidth="216.0" text="New Rental">
                                  <VBox.margin>
-                                    <Insets bottom="5.0" top="5.0" />
+                                    <Insets top="5.0" />
                                  </VBox.margin>
                               </ToggleButton>
-                              <ToggleButton fx:id="terminateRentalButton" layoutX="20.0" layoutY="25.0" mnemonicParsing="false" onAction="#terminateRental" prefHeight="35.0" prefWidth="216.0" text="Terminate Rental">
+                              <ToggleButton fx:id="terminateRentalButton" layoutX="20.0" layoutY="25.0" mnemonicParsing="false" onAction="#terminateRental" prefHeight="28.0" prefWidth="216.0" text="Terminate Rental">
                                  <VBox.margin>
-                                    <Insets bottom="5.0" top="5.0" />
+                                    <Insets top="5.0" />
                                  </VBox.margin>
                               </ToggleButton>
-                              <ToggleButton fx:id="transferRentalButton" layoutX="20.0" layoutY="65.0" mnemonicParsing="false" onAction="#transferRental" prefHeight="35.0" prefWidth="216.0" text="Transfer Rental">
+                              <ToggleButton fx:id="transferRentalButton" layoutX="20.0" layoutY="65.0" mnemonicParsing="false" onAction="#transferRental" prefHeight="28.0" prefWidth="216.0" text="Transfer Rental">
                                  <VBox.margin>
-                                    <Insets bottom="5.0" top="5.0" />
+                                    <Insets top="5.0" />
                                  </VBox.margin>
                               </ToggleButton>
-                              <ToggleButton fx:id="addDemandButton" layoutX="20.0" layoutY="100.0" mnemonicParsing="false" onAction="#addDemand" prefHeight="35.0" prefWidth="216.0" text="Add Demand">
+                              <ToggleButton fx:id="addDemandButton" layoutX="20.0" layoutY="100.0" mnemonicParsing="false" onAction="#addDemand" prefHeight="28.0" prefWidth="216.0" text="Add Demand">
                                  <VBox.margin>
-                                    <Insets bottom="5.0" top="5.0" />
+                                    <Insets top="5.0" />
                                  </VBox.margin>
                               </ToggleButton>
+                              <Separator prefWidth="200.0">
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" top="10.0" />
+                                 </VBox.margin>
+                              </Separator>
+                              <ToggleButton fx:id="addDemandButton1" layoutX="20.0" layoutY="169.0" mnemonicParsing="false" onAction="#addDemand" prefHeight="28.0" prefWidth="216.0" text="Edit Entry">
+                                 <VBox.margin>
+                                    <Insets bottom="5.0" />
+                                 </VBox.margin>
+                              </ToggleButton>
+                              <ToggleButton fx:id="addDemandButton11" layoutX="20.0" layoutY="202.0" mnemonicParsing="false" onAction="#addDemand" prefHeight="28.0" prefWidth="216.0" text="Delete Entry" />
                            </children>
                            <padding>
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />

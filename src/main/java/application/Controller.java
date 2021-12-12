@@ -7,8 +7,8 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -30,10 +30,10 @@ public class Controller {
 	@FXML private ChoiceBox<String> rentalSourceDropdown;
 	@FXML private TableView<Entry> demandTracker;
 	@FXML private TextField nameTextField;
-	@FXML private TextField phoneEmailTextField;
+	@FXML private TextField phoneTextField;
 	@FXML private TextField emailTextField;
 	@FXML private TextField needByDateTextField;
-	@FXML private TextField notesTextField;
+	@FXML private TextArea notesTextArea;
 	
 	public Controller() {}
 	
@@ -106,24 +106,14 @@ public class Controller {
 		LocalDate needByDate = LocalDate.now(); // LocalDate.parse(needByDateTextField.getText());
 		String source = rentalSourceDropdown.getSelectionModel().getSelectedItem();
 		String name = nameTextField.getText();
-		String phone = phoneEmailTextField.getText();
-		String email = phoneEmailTextField.getText();
-		String notes = notesTextField.getText();
+		String phone = phoneTextField.getText();
+		String email = emailTextField.getText();
+		String notes = notesTextArea.getText();
 		
 		Entry entry = new Entry(action, catagory, size, type, contactDate, needByDate, 
 				source, name, phone, email, notes);
 		
 		demandTracker.getItems().add(entry);
-		
-//		TableRow<Entry> row = new TableRow<>();
-//		
-//		row.getItem().setAction(action);
-//		row.getItem().setCatagory(catagory);
-//		row.getItem().setSize(size);
-//		row.getItem().setType(type);
-//		
-//		
-//		demandTracker.getItems().add(row);
 	}
 	
 	private String getSelectedAction() {
@@ -134,7 +124,7 @@ public class Controller {
 			
 		} else if (terminateRentalButton.isSelected()) {
 			
-			return "Termination";
+			return "Vacate";
 			
 		} else if (transferRentalButton.isSelected()) {
 			
