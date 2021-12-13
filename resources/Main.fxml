@@ -338,7 +338,7 @@
                   <Insets bottom="1.0" left="1.0" />
                </BorderPane.margin>
                <center>
-                  <TableView fx:id="demandTracker" prefHeight="200.0" prefWidth="200.0">
+                  <TableView fx:id="demandTrackerTableView" prefHeight="200.0" prefWidth="200.0">
                     <columns>
                         <TableColumn prefWidth="50.0" text="Action" />
                       <TableColumn prefWidth="50.0" text="Size" />

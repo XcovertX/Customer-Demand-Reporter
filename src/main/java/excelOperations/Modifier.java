@@ -16,42 +16,73 @@ public class Modifier {
 	private XSSFSheet YTDDemandSummarySheet;
 	private XSSFSheet inputTabSheet;
 	
-	public Modifier() { }
-	
-	public void newRental(String fileLocation, String unitSize, String unitType, String marketing) throws IOException {
+	public Modifier() { 
 		
-		readFromFile(fileLocation);
+		
+	}
+	
+	public int newRental(String fileLocation, String unitSize, String unitType, String marketing) {
+		
+		int readSuccess = readFromFile(fileLocation);
 		int rowNum = locateRow(unitSize, unitType);
 		int sourceNum = getSource(marketing);
 		int numOfUnits = getNumOfUnits(rowNum);
-		incrementRented(unitSize, unitType, rowNum, numOfUnits, sourceNum);
-		evaluateCells();
-		writeToFile(fileLocation);	
+		int incRented = incrementRented(unitSize, unitType, rowNum, numOfUnits, sourceNum);
+		int evalCells = evaluateCells();
+		int writeSuccess = writeToFile(fileLocation);
+		
+		if (
+				readSuccess  < 0 ||
+				rowNum       < 0 ||
+				sourceNum    < 0 ||
+				numOfUnits   < 0 ||
+				incRented    < 0 ||
+				evalCells    < 0 ||
+				writeSuccess < 0 
+										) {
+
+			return -1;
+		}
+		
+		return 1;	
 	}
 	
-	public void terminateRental(String fileLocation, String unitSize, String unitType) throws IOException {
+	public int terminateRental(String fileLocation, String unitSize, String unitType) {
 		
-		readFromFile(fileLocation);
+		int readSuccess = readFromFile(fileLocation);
 		int rowNum = locateRow(unitSize, unitType);
 		boolean transferring = false;
+		int decRented = decrementRented(unitSize, unitType, rowNum, transferring);
+		int evelCells = evaluateCells();
+		int writeSuccess = writeToFile(fileLocation);
 		
-		decrementRented(unitSize, unitType, rowNum, transferring);
-		evaluateCells();
-		writeToFile(fileLocation);	
+		if (
+				readSuccess  < 0 ||
+				rowNum       < 0 ||
+				decRented    < 0 ||
+				evelCells    < 0 ||
+				writeSuccess < 0 
+										) {
+			
+			return -1;
+		}
+		
+		return 1;
 	}
 	
-	public void transferRental(String fileLocation, 
+	public int transferRental(String fileLocation, 
 							   String unitSizeFrom, String unitTypeFrom,
-			 				   String unitSizeTo,   String unitTypeTo) throws IOException {
+			 				   String unitSizeTo,   String unitTypeTo) {
 		
-		readFromFile(fileLocation);
-		
+		int readSuccess = readFromFile(fileLocation);
 		int rowNumFrom = locateRow(unitSizeFrom, unitTypeFrom);
 		int rowNumTo = locateRow(unitSizeTo, unitTypeTo);
 		int numOfUnitsTo = getNumOfUnits(rowNumTo);
-		int noSource = -1;
+		int noSource = 0;
 		boolean transferring = true;
 		int rentedColumn = 4;
+		int decRented = -1;
+		int incRented = -1;
 		
 		XSSFRow rowFrom = inputTabSheet.getRow(rowNumFrom);
 		XSSFCell cellFrom = rowFrom.getCell(rentedColumn);
@@ -64,8 +95,8 @@ public class Modifier {
 		
 		if (newValueFrom >= 0 && newValueTo <= numOfUnitsTo) {
 			
-			decrementRented(unitSizeFrom, unitTypeFrom, rowNumFrom, transferring);
-			incrementRented(unitSizeTo, unitTypeTo, rowNumTo, numOfUnitsTo, noSource);
+			decRented = decrementRented(unitSizeFrom, unitTypeFrom, rowNumFrom, transferring);
+			incRented = incrementRented(unitSizeTo, unitTypeTo, rowNumTo, numOfUnitsTo, noSource);
 			System.out.println("Transferred!");
 			
 		} else {
@@ -73,21 +104,48 @@ public class Modifier {
 			System.out.println("Failed to transfer!");
 		}
 		
-		evaluateCells();
-		writeToFile(fileLocation);
+		int evalCells = evaluateCells();
+		int writeSuccess = writeToFile(fileLocation);
+		
+		if (
+				readSuccess  < 0 ||
+				rowNumFrom   < 0 ||
+				rowNumTo     < 0 ||
+				numOfUnitsTo < 0 ||
+				incRented    < 0 ||
+				decRented    < 0 ||
+				evalCells    < 0 ||
+				writeSuccess < 0 
+										) {
+			
+			return -1;
+		}
+		
+		return 1;
 	}
 	
-	public void addDemand(String fileLocation, String unitSize, String unitType, String marketing) throws IOException {
+	public int addDemand(String fileLocation, String unitSize, String unitType, String marketing) {
 		
-		readFromFile(fileLocation);
-
+		int readSuccess = readFromFile(fileLocation);
 		int rowNum = locateRow(unitSize, unitType);
 		int sourceNum = getSource(marketing);
+		int incSource = incrementSource(rowNum, sourceNum);	
+		int evalCells = evaluateCells();
+		int writeSuccess = writeToFile(fileLocation);
 		
-		incrementSource(rowNum, sourceNum);	
+		if (
+				readSuccess  < 0 ||
+				rowNum       < 0 ||
+				sourceNum    < 0 ||
+				incSource    < 0 ||
+				evalCells    < 0 ||
+				writeSuccess < 0 
+										) {
+			
+			return -1;
+		}
 		
-		evaluateCells();
-		writeToFile(fileLocation);
+		return 1;	
 	}
 	
 	private int locateRow(String unitSize, String unitType) {
@@ -111,7 +169,10 @@ public class Modifier {
 					}
 				}	
 				
-			} catch (NullPointerException e) {}
+			} catch (NullPointerException e) {
+				
+				return -1;
+			}
 		}
 		return 0;
 	}
@@ -135,7 +196,7 @@ public class Modifier {
 			
 			return 10;
 			
-		} else if(source.equals("Refferal")) {
+		} else if(source.equals("Referral")) {
 			
 			return 11;
 			
@@ -145,7 +206,7 @@ public class Modifier {
 			
 		} else {
 			
-			return 0;
+			return -1;
 		}
 	}
 	
@@ -162,18 +223,20 @@ public class Modifier {
 			
 			cell.setCellValue( newValue );
 			
-			if (sourceNum >= 0) {
+			if (sourceNum > 0) {
 				
 				incrementSource(rowNum, sourceNum);
 				incrementRentals(rowNum);
+				
+				return 1;
 			}
 			
-			return 1;
+			return 0;
 			
 		} else {
 			
 			System.out.println("There are no more " + unitType + " " + unitSize + "'s available to rent.");
-			return 0;
+			return -1;
 		}
 		
 	}
@@ -233,13 +296,16 @@ public class Modifier {
 			if (!isTransferring) {
 				
 				incrementVacates(rowNum);
+				
+				return 1;
 			}
-			return 1;
+			
+			return 0;
 			
 		} else {
 			
 			System.out.println("All of the " + unitType + " " + unitSize + "'s are currently available.");
-			return 0;
+			return -1;
 		}
 		
 	}
@@ -265,29 +331,50 @@ public class Modifier {
 		
 	}
 	
-	private void readFromFile(String fileLocation) throws IOException {
+	private int readFromFile(String fileLocation) {
 		
-		FileInputStream inputStream = new FileInputStream(fileLocation);
+		try {
 		
-		workbook = new XSSFWorkbook(inputStream);
+			FileInputStream inputStream = new FileInputStream(fileLocation);
+			
+			workbook = new XSSFWorkbook(inputStream);
+			
+			YTDDemandSummarySheet = workbook.getSheet("YTD Demand Summary");
+			inputTabSheet = workbook.getSheet("Input Tab");
+	
+			inputStream.close();
+			
+			return 1;
 		
-		YTDDemandSummarySheet = workbook.getSheet("YTD Demand Summary");
-		inputTabSheet = workbook.getSheet("Input Tab");
-
-		inputStream.close();
+		} catch (IOException e) {
+			
+			System.out.println("Failed to read to file.");
+			return -1;	
+		}
 	}
 	
-	private void writeToFile(String fileLocation) throws IOException {
+	private int writeToFile(String fileLocation) {
 		
-		FileOutputStream outputStream = new FileOutputStream(fileLocation);
-		workbook.write(outputStream);
-		workbook.close();
-		outputStream.close();
+		try {
+			
+			FileOutputStream outputStream = new FileOutputStream(fileLocation);
+			workbook.write(outputStream);
+			workbook.close();
+			outputStream.close();
+			
+			return 1;
+		
+		} catch (IOException e) {
+			
+			System.out.println("Failed to write to file.");
+			return -1;	
+		}
 	}
 	
-	private void evaluateCells() {
+	private int evaluateCells() {
 		
 		XSSFFormulaEvaluator.evaluateAllFormulaCells(workbook);
+		return 1;
 	}
 
 }

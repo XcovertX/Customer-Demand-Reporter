@@ -1,5 +1,6 @@
 package main.java.application;
 
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
@@ -14,6 +15,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
+import main.java.excelOperations.DemandTracker;
+import main.java.excelOperations.Modifier;
 
 public class Controller {
 
@@ -30,7 +33,7 @@ public class Controller {
 	@FXML private ChoiceBox<String> rentalSizeDropdown;
 	@FXML private ChoiceBox<String> rentalTypeDropdown;
 	@FXML private ChoiceBox<String> rentalSourceDropdown;
-	@FXML private TableView<Entry> demandTracker;
+	@FXML private TableView<Entry> demandTrackerTableView;
 	@FXML private TextField nameTextField;
 	@FXML private TextField phoneTextField;
 	@FXML private TextField emailTextField;
@@ -39,25 +42,28 @@ public class Controller {
 	
 	public String unusedCell = "----------";
 	
+	private DemandTracker demandTracker;
+	
 	public Controller() {}
 	
 	@FXML
 	private void initialize() {
 		
-		demandTracker.getColumns().get(0).setCellValueFactory(new PropertyValueFactory<>("action"));
-		demandTracker.getColumns().get(1).setCellValueFactory(new PropertyValueFactory<>("size"));
-		demandTracker.getColumns().get(2).setCellValueFactory(new PropertyValueFactory<>("type"));
-		demandTracker.getColumns().get(3).setCellValueFactory(new PropertyValueFactory<>("contactDate"));
-		demandTracker.getColumns().get(4).setCellValueFactory(new PropertyValueFactory<>("needByDate"));
-		demandTracker.getColumns().get(5).setCellValueFactory(new PropertyValueFactory<>("source"));
-		demandTracker.getColumns().get(6).setCellValueFactory(new PropertyValueFactory<>("name"));
-		demandTracker.getColumns().get(7).setCellValueFactory(new PropertyValueFactory<>("phone"));
-		demandTracker.getColumns().get(8).setCellValueFactory(new PropertyValueFactory<>("email"));
-		demandTracker.getColumns().get(9).setCellValueFactory(new PropertyValueFactory<>("notes"));
+		demandTrackerTableView.getColumns().get(0).setCellValueFactory(new PropertyValueFactory<>("action"));
+		demandTrackerTableView.getColumns().get(1).setCellValueFactory(new PropertyValueFactory<>("size"));
+		demandTrackerTableView.getColumns().get(2).setCellValueFactory(new PropertyValueFactory<>("type"));
+		demandTrackerTableView.getColumns().get(3).setCellValueFactory(new PropertyValueFactory<>("contactDate"));
+		demandTrackerTableView.getColumns().get(4).setCellValueFactory(new PropertyValueFactory<>("needByDate"));
+		demandTrackerTableView.getColumns().get(5).setCellValueFactory(new PropertyValueFactory<>("source"));
+		demandTrackerTableView.getColumns().get(6).setCellValueFactory(new PropertyValueFactory<>("name"));
+		demandTrackerTableView.getColumns().get(7).setCellValueFactory(new PropertyValueFactory<>("phone"));
+		demandTrackerTableView.getColumns().get(8).setCellValueFactory(new PropertyValueFactory<>("email"));
+		demandTrackerTableView.getColumns().get(9).setCellValueFactory(new PropertyValueFactory<>("notes"));
 	}
 	
 	public void newRental(ActionEvent e) {
 		
+		demandTrackerTableView.getSelectionModel().clearSelection();
 		terminateRentalButton.setSelected(false);
 		transferRentalButton.setSelected(false);
 		addDemandButton.setSelected(false);
@@ -79,6 +85,7 @@ public class Controller {
 	
 	public void terminateRental(ActionEvent e) {
 		
+		demandTrackerTableView.getSelectionModel().clearSelection();
 		newRentalButton.setSelected(false);
 		transferRentalButton.setSelected(false);
 		addDemandButton.setSelected(false);
@@ -96,6 +103,7 @@ public class Controller {
 	
 	public void transferRental(ActionEvent e) {
 
+		demandTrackerTableView.getSelectionModel().clearSelection();
 		newRentalButton.setSelected(false);
 		terminateRentalButton.setSelected(false);
 		addDemandButton.setSelected(false);
@@ -113,6 +121,7 @@ public class Controller {
 	
 	public void addDemand(ActionEvent e) {
 
+		demandTrackerTableView.getSelectionModel().clearSelection();
 		newRentalButton.setSelected(false);
 		terminateRentalButton.setSelected(false);
 		transferRentalButton.setSelected(false);
@@ -150,10 +159,35 @@ public class Controller {
 			String email = getEmailText();
 			String notes = getNotesText();
 			
-			Entry entry = new Entry(action, catagory, size, type, contactDate, needByDate, 
-					source, name, phone, email, notes);
-			
-			demandTracker.getItems().add(entry);
+			try {
+				
+				String filePath = DemandTracker.dt.getExcelFilePath();
+	
+				int newRentalSuccess = new Modifier().newRental(filePath, size, type, source);
+				
+				if (newRentalSuccess >= 0) {
+					
+					Entry entry = new Entry(action, catagory, size, type, contactDate, needByDate, 
+							source, name, phone, email, notes);
+					
+					demandTrackerTableView.getItems().add(entry);
+					
+					clearAllDropdowns();
+					clearAllTextFields();
+					clearAllButtons();
+					demandTrackerTableView.getSelectionModel().selectLast();
+					
+				} else {
+	
+					System.out.println("Failed to add new rental.");
+				}
+				
+			} catch (NullPointerException e) {
+				
+				System.out.println("Missing required information.");
+				submitButton.setSelected(false);
+				return;
+			}
 			
 		} else if (terminateRentalButton.isSelected()) {
 			
@@ -161,11 +195,36 @@ public class Controller {
 			String catagory = parkStoreDropdown.getSelectionModel().getSelectedItem();
 			String size = rentalSizeDropdown.getSelectionModel().getSelectedItem();
 			String type = rentalTypeDropdown.getSelectionModel().getSelectedItem();
-			
-			Entry entry = new Entry(action, catagory, size, type, unusedCell, unusedCell, 
-					unusedCell, unusedCell, unusedCell, unusedCell, unusedCell);
-			
-			demandTracker.getItems().add(entry);
+
+			try {
+
+				String filePath = DemandTracker.dt.getExcelFilePath();
+				
+				int terminateSuccess = new Modifier().terminateRental(filePath, size, type);
+				
+				if (terminateSuccess >= 0) {
+					
+					Entry entry = new Entry(action, catagory, size, type, unusedCell, unusedCell, 
+							unusedCell, unusedCell, unusedCell, unusedCell, unusedCell);
+					
+					demandTrackerTableView.getItems().add(entry);
+					
+					clearAllDropdowns();
+					clearAllTextFields();
+					clearAllButtons();
+					demandTrackerTableView.getSelectionModel().selectLast();
+					
+				} else {
+					
+					System.out.println("Failed to terminate rental.");
+				}
+				
+			} catch (NullPointerException e) {
+				
+				System.out.println("Missing required information.");
+				submitButton.setSelected(false);
+				return;
+			}
 			
 		} else if (transferRentalButton.isSelected()) {
 			
@@ -174,11 +233,36 @@ public class Controller {
 			String size = rentalSizeDropdown.getSelectionModel().getSelectedItem();
 			String type = rentalTypeDropdown.getSelectionModel().getSelectedItem();
 			
-			Entry entry = new Entry(action, catagory, size, type, unusedCell, unusedCell, 
-					unusedCell, unusedCell, unusedCell, unusedCell, unusedCell);
-			
-			demandTracker.getItems().add(entry);
-			
+			try {
+				
+				String filePath = DemandTracker.dt.getExcelFilePath();
+				
+				int transferRentalSuccess = new Modifier().transferRental(filePath, size, type, "10x10", "Upper-Temp");
+				
+				if (transferRentalSuccess >= 0) {
+					
+					Entry entry = new Entry(action, catagory, size, type, unusedCell, unusedCell, 
+							unusedCell, unusedCell, unusedCell, unusedCell, unusedCell);
+					
+					demandTrackerTableView.getItems().add(entry);
+					
+					clearAllDropdowns();
+					clearAllTextFields();
+					clearAllButtons();
+					demandTrackerTableView.getSelectionModel().selectLast();
+					
+				} else {
+	
+					System.out.println("Failed to transfer rental.");
+				}
+				
+			} catch (NullPointerException e) {
+				
+				System.out.println("Missing required information.");
+				submitButton.setSelected(false);
+				return;
+			}
+
 		} else if (addDemandButton.isSelected()) {
 			
 			String action = getSelectedAction();
@@ -193,15 +277,36 @@ public class Controller {
 			String email = getEmailText();
 			String notes = getNotesText();
 			
-			Entry entry = new Entry(action, catagory, size, type, contactDate, needByDate, 
-					source, name, phone, email, notes);
-			
-			demandTracker.getItems().add(entry);
+			try {
+				
+				String filePath = DemandTracker.dt.getExcelFilePath();
+	
+				int addDemandSuccess = new Modifier().addDemand(filePath, size, type, source);
+				
+				if (addDemandSuccess >= 0) {
+				
+					Entry entry = new Entry(action, catagory, size, type, contactDate, needByDate, 
+							source, name, phone, email, notes);
+					
+					demandTrackerTableView.getItems().add(entry);
+					
+					clearAllDropdowns();
+					clearAllTextFields();
+					clearAllButtons();
+					demandTrackerTableView.getSelectionModel().selectLast();
+					
+				} else {
+					
+					System.out.println("Failed to add demand.");
+				}	
+				
+			} catch (NullPointerException e) {
+				
+				System.out.println("Missing required information.");
+				submitButton.setSelected(false);
+				return;
+			}
 		}
-		
-		clearAllDropdowns();
-		clearAllTextFields();
-		clearAllButtons();
 	}
 	
 	private String getNeedByDate() {

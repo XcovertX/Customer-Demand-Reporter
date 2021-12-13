@@ -6,9 +6,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import main.java.excelOperations.DemandTracker;
 
 public class GUI { 
 	
+	private DemandTracker dt;
 	private Stage window;
     private Parent root;
     private Scene scene;
@@ -16,7 +18,8 @@ public class GUI {
 	
 	public GUI() {
 		
-		window = new Stage();
+//		this.setDt(new DemandTracker());
+		this.window = new Stage();
 		
 		try {
 			
@@ -54,5 +57,15 @@ public class GUI {
 	public void setController(Controller controller) {
 		
 		this.controller = controller;
+	}
+
+	public DemandTracker getDt() {
+		
+		return dt;
+	}
+
+	public void setDt(DemandTracker dt) {
+		
+		this.dt = dt;
 	}
 }

@@ -6,6 +6,7 @@ import main.java.application.GUI;
 
 public class DemandTracker {
 	
+	public static DemandTracker dt;
 	private String excelFilePath;
 	private ExcelReader excelReader;
 	private ExcelWriter excelWriter;
@@ -13,6 +14,7 @@ public class DemandTracker {
 	
 	public DemandTracker() {
 		
+		dt = this;
 		String date = java.time.LocalDate.now().toString();
 		System.out.println("Date: " + date);
 
