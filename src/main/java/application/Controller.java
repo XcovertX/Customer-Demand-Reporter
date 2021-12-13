@@ -2,8 +2,6 @@ package main.java.application;
 
 import java.net.URL;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
@@ -27,6 +25,7 @@ public class Controller {
 	@FXML private ToggleButton terminateRentalButton;
 	@FXML private ToggleButton transferRentalButton;
 	@FXML private ToggleButton addDemandButton;
+	@FXML private ToggleButton submitButton;
 	@FXML private ChoiceBox<String> parkStoreDropdown;
 	@FXML private ChoiceBox<String> rentalSizeDropdown;
 	@FXML private ChoiceBox<String> rentalTypeDropdown;
@@ -38,7 +37,7 @@ public class Controller {
 	@FXML private DatePicker needByDatePicker;
 	@FXML private TextArea notesTextArea;
 	
-	public int count = 0;
+	public String unusedCell = "----------";
 	
 	public Controller() {}
 	
@@ -47,7 +46,7 @@ public class Controller {
 		
 		demandTracker.getColumns().get(0).setCellValueFactory(new PropertyValueFactory<>("action"));
 		demandTracker.getColumns().get(1).setCellValueFactory(new PropertyValueFactory<>("size"));
-		demandTracker.getColumns().get(2).setCellValueFactory(new PropertyValueFactory<>("catagory"));
+		demandTracker.getColumns().get(2).setCellValueFactory(new PropertyValueFactory<>("type"));
 		demandTracker.getColumns().get(3).setCellValueFactory(new PropertyValueFactory<>("contactDate"));
 		demandTracker.getColumns().get(4).setCellValueFactory(new PropertyValueFactory<>("needByDate"));
 		demandTracker.getColumns().get(5).setCellValueFactory(new PropertyValueFactory<>("source"));
@@ -65,6 +64,16 @@ public class Controller {
 		
 		clearAllDropdowns();
 		
+		parkStoreDropdown.setDisable(false);
+		rentalSizeDropdown.setDisable(false);
+		rentalTypeDropdown.setDisable(false);
+		rentalSourceDropdown.setDisable(false);
+		nameTextField.setDisable(false);
+		emailTextField.setDisable(false);
+		phoneTextField.setDisable(false);
+		needByDatePicker.setDisable(false);
+		notesTextArea.setDisable(false);
+		
 		loadParkStoreDropdown();
 	}
 	
@@ -74,7 +83,13 @@ public class Controller {
 		transferRentalButton.setSelected(false);
 		addDemandButton.setSelected(false);
 		
+		disableAll();
+		clearAllTextFields();
 		clearAllDropdowns();
+		
+		parkStoreDropdown.setDisable(false);
+		rentalSizeDropdown.setDisable(false);
+		rentalTypeDropdown.setDisable(false);
 		
 		loadParkStoreDropdown();
 	}
@@ -85,7 +100,13 @@ public class Controller {
 		terminateRentalButton.setSelected(false);
 		addDemandButton.setSelected(false);
 		
+		disableAll();
+		clearAllTextFields();
 		clearAllDropdowns();
+		
+		parkStoreDropdown.setDisable(false);
+		rentalSizeDropdown.setDisable(false);
+		rentalTypeDropdown.setDisable(false);
 		
 		loadParkStoreDropdown();
 	}
@@ -96,29 +117,104 @@ public class Controller {
 		terminateRentalButton.setSelected(false);
 		transferRentalButton.setSelected(false);
 		
+		disableAll();
+		clearAllTextFields();
 		clearAllDropdowns();
+		
+		parkStoreDropdown.setDisable(false);
+		rentalSizeDropdown.setDisable(false);
+		rentalTypeDropdown.setDisable(false);
+		rentalSourceDropdown.setDisable(false);
+		nameTextField.setDisable(false);
+		emailTextField.setDisable(false);
+		phoneTextField.setDisable(false);
+		needByDatePicker.setDisable(false);
+		notesTextArea.setDisable(false);
 		
 		loadParkStoreDropdown();
 	}
 	
 	public void submit() {
 		
-		String action = getSelectedAction();
-		String catagory = parkStoreDropdown.getSelectionModel().getSelectedItem();
-		String size = rentalSizeDropdown.getSelectionModel().getSelectedItem();
-		String type = rentalTypeDropdown.getSelectionModel().getSelectedItem();
-		String contactDate = LocalDate.now().toString();
-		String needByDate = needByDatePicker.getValue().toString();
-		String source = rentalSourceDropdown.getSelectionModel().getSelectedItem();
-		String name = getNameText();
-		String phone = getPhoneText();
-		String email = getEmailText();
-		String notes = getNotesText();
+		if (newRentalButton.isSelected()) {
+			
+			String action = getSelectedAction();
+			String catagory = parkStoreDropdown.getSelectionModel().getSelectedItem();
+			String size = rentalSizeDropdown.getSelectionModel().getSelectedItem();
+			String type = rentalTypeDropdown.getSelectionModel().getSelectedItem();
+			String contactDate = LocalDate.now().toString();
+			String needByDate = getNeedByDate();
+			String source = rentalSourceDropdown.getSelectionModel().getSelectedItem();
+			String name = getNameText();
+			String phone = getPhoneText();
+			String email = getEmailText();
+			String notes = getNotesText();
+			
+			Entry entry = new Entry(action, catagory, size, type, contactDate, needByDate, 
+					source, name, phone, email, notes);
+			
+			demandTracker.getItems().add(entry);
+			
+		} else if (terminateRentalButton.isSelected()) {
+			
+			String action = getSelectedAction();
+			String catagory = parkStoreDropdown.getSelectionModel().getSelectedItem();
+			String size = rentalSizeDropdown.getSelectionModel().getSelectedItem();
+			String type = rentalTypeDropdown.getSelectionModel().getSelectedItem();
+			
+			Entry entry = new Entry(action, catagory, size, type, unusedCell, unusedCell, 
+					unusedCell, unusedCell, unusedCell, unusedCell, unusedCell);
+			
+			demandTracker.getItems().add(entry);
+			
+		} else if (transferRentalButton.isSelected()) {
+			
+			String action = getSelectedAction();
+			String catagory = parkStoreDropdown.getSelectionModel().getSelectedItem();
+			String size = rentalSizeDropdown.getSelectionModel().getSelectedItem();
+			String type = rentalTypeDropdown.getSelectionModel().getSelectedItem();
+			
+			Entry entry = new Entry(action, catagory, size, type, unusedCell, unusedCell, 
+					unusedCell, unusedCell, unusedCell, unusedCell, unusedCell);
+			
+			demandTracker.getItems().add(entry);
+			
+		} else if (addDemandButton.isSelected()) {
+			
+			String action = getSelectedAction();
+			String catagory = parkStoreDropdown.getSelectionModel().getSelectedItem();
+			String size = rentalSizeDropdown.getSelectionModel().getSelectedItem();
+			String type = rentalTypeDropdown.getSelectionModel().getSelectedItem();
+			String contactDate = LocalDate.now().toString();
+			String needByDate = getNeedByDate();
+			String source = rentalSourceDropdown.getSelectionModel().getSelectedItem();
+			String name = getNameText();
+			String phone = getPhoneText();
+			String email = getEmailText();
+			String notes = getNotesText();
+			
+			Entry entry = new Entry(action, catagory, size, type, contactDate, needByDate, 
+					source, name, phone, email, notes);
+			
+			demandTracker.getItems().add(entry);
+		}
 		
-		Entry entry = new Entry(action, catagory, size, type, contactDate, needByDate, 
-				source, name, phone, email, notes);
+		clearAllDropdowns();
+		clearAllTextFields();
+		clearAllButtons();
+	}
+	
+	private String getNeedByDate() {
 		
-		demandTracker.getItems().add(entry);
+		String date = LocalDate.now().toString();
+		
+		try {
+			
+			date = needByDatePicker.getValue().toString();
+			
+		} catch (NullPointerException e) { }
+		
+		return date;
 	}
 	
 	private String getNameText() {
@@ -416,6 +512,38 @@ public class Controller {
 		clearDropdown(rentalSizeDropdown);
 		clearDropdown(rentalTypeDropdown);
 		clearDropdown(rentalSourceDropdown);
+	}
+	
+	private void clearAllTextFields() {
+		
+		nameTextField.clear();
+		emailTextField.clear();
+		phoneTextField.clear();
+		notesTextArea.clear();
+		needByDatePicker.setValue(null);
+	}
+	
+	private void clearAllButtons() {
+		
+		newRentalButton.setSelected(false);
+		terminateRentalButton.setSelected(false);
+		transferRentalButton.setSelected(false);
+		addDemandButton.setSelected(false);
+		submitButton.setSelected(false);
+	}
+	
+	private void disableAll() {
+		
+		parkStoreDropdown.setDisable(true);
+		rentalSizeDropdown.setDisable(true);
+		rentalTypeDropdown.setDisable(true);
+		rentalSourceDropdown.setDisable(true);
+
+		nameTextField.setDisable(true);
+		emailTextField.setDisable(true);
+		phoneTextField.setDisable(true);
+		needByDatePicker.setDisable(true);
+		notesTextArea.setDisable(true);
 	}
 	
 	private void clearDropdown(ChoiceBox<String> dropdown) {

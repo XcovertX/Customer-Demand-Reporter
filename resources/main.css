@@ -124,6 +124,9 @@
     -fx-background-color: #EBA63F;
 	-fx-text-fill: #F7F4E9;
 }
+.table-row-cell {
+    -fx-font-size: 10;
+}
 
 .table-view .virtual-flow .scroll-bar:vertical,
 .table-view .virtual-flow .scroll-bar:vertical .track,

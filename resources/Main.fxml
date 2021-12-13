@@ -176,7 +176,7 @@
                                     <Insets left="5.0" />
                                  </BorderPane.margin>
                                  <right>
-                                    <ToggleButton mnemonicParsing="false" onAction="#submit" prefHeight="28.0" prefWidth="185.0" text="Submit" BorderPane.alignment="CENTER">
+                                    <ToggleButton fx:id="submitButton" mnemonicParsing="false" onAction="#submit" prefHeight="28.0" prefWidth="185.0" text="Submit" BorderPane.alignment="CENTER">
                                        <BorderPane.margin>
                                           <Insets top="5.0" />
                                        </BorderPane.margin>
@@ -204,7 +204,7 @@
                                           <Insets right="5.0" />
                                        </HBox.margin>
                                     </TextField>
-                                    <Label id="surfaceLabel" prefHeight="28.0" prefWidth="63.0" text="Email :">
+                                    <Label id="surfaceLabel" prefHeight="28.0" prefWidth="66.0" text="Email :">
                                        <HBox.margin>
                                           <Insets right="5.0" />
                                        </HBox.margin>
@@ -342,14 +342,14 @@
                     <columns>
                         <TableColumn prefWidth="50.0" text="Action" />
                       <TableColumn prefWidth="50.0" text="Size" />
-                        <TableColumn prefWidth="63.0" text="Type" />
+                        <TableColumn prefWidth="110.0" text="Type" />
                       <TableColumn prefWidth="110.0" text="Contact Date" />
                         <TableColumn prefWidth="110.0" text="Need Date" />
                         <TableColumn prefWidth="90.0" text="Source" />
                         <TableColumn prefWidth="110.0" text="Name" />
                         <TableColumn prefWidth="107.0" text="Phone" />
                         <TableColumn prefWidth="107.0" text="Email" />
-                        <TableColumn prefWidth="170.0" text="Notes" />
+                        <TableColumn prefWidth="118.0" text="Notes" />
                     </columns>
                      <BorderPane.margin>
                         <Insets top="1.0" />
