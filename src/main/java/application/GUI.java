@@ -1,4 +1,4 @@
-package main.java.application;
+package application;
 
 import java.io.IOException;
 
@@ -6,7 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import main.java.excelOperations.DemandTracker;
+import excelOperations.DemandTracker;
 
 public class GUI { 
 	
@@ -30,8 +30,10 @@ public class GUI {
 				root = fxmll.load();
 				
 			} catch (IOException e) {
-				
+
+				System.out.println( "Could not load Main.fxml");
 				e.printStackTrace();
+				System.exit( 0 );
 			}
 			
 			scene = new Scene(root);
@@ -44,8 +46,10 @@ public class GUI {
 			window.show();
 			
 		} catch(Exception e) {
-			
+
+			System.out.println( "Could not find Main.fxml");
 			e.printStackTrace();
+			System.exit( 0 );
 		}
 	}
 

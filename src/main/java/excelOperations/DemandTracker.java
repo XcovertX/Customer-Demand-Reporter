@@ -1,8 +1,7 @@
-package main.java.excelOperations;
+package excelOperations;
 
-import java.io.IOException;
-import main.java.application.ExcelReader;
-import main.java.application.GUI;
+import application.ExcelReader;
+import application.GUI;
 
 public class DemandTracker {
 	
@@ -22,25 +21,8 @@ public class DemandTracker {
 		setExcelWriter(new ExcelWriter());
 		setExcelReader(new ExcelReader());
 		setGui(new GUI());
-		
-//		Modifier mod = new Modifier();
-//		
-//		try {
-//			
-//			mod.newRental(excelFilePath, "10x7.5", "Upper-Temp", "Call");
-//			mod.terminateRental(excelFilePath, "7x12", "Upper-Temp");
-//			mod.transferRental(excelFilePath, "5x5", "Ground-Temp", "10x10", "Upper-Temp");
-//			mod.addDemand(excelFilePath, "10x7.5", "Upper-Temp", "Call");
-//			
-//		} catch (IOException e) {
-//			
-//			System.out.println("Failed to modify the file.");
-//			e.printStackTrace();
-//		}
 	}
 	
-	
-
 	public String getExcelFilePath() {
 		
 		return excelFilePath;

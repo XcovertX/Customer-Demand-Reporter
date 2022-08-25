@@ -1,8 +1,8 @@
-package main.java.application;
+package application;
 	
 import javafx.application.Application;
 import javafx.stage.Stage;
-import main.java.excelOperations.DemandTracker;
+import excelOperations.DemandTracker;
 
 public class Main extends Application {
 	

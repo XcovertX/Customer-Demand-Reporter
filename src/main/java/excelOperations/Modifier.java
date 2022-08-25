@@ -1,4 +1,4 @@
-package main.java.excelOperations;
+package excelOperations;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -152,6 +152,7 @@ public class Modifier {
 
 		int rows = inputTabSheet.getLastRowNum();
 		
+		System.out.println("UnitSize: " + unitSize + " unitType: " + unitType +" LocateRow row count: " + rows);
 		for (int i = 5; i < rows; i++) {
 			
 			try {
@@ -171,7 +172,7 @@ public class Modifier {
 				
 			} catch (NullPointerException e) {
 				
-				return -1;
+				System.out.println("Null exception on row: " + i);
 			}
 		}
 		return 0;
@@ -284,6 +285,7 @@ public class Modifier {
 		
 		int rentedColumn = 4;
 		
+		System.out.println("Row: " + rowNum + " Col: " + rentedColumn);
 		XSSFRow row = inputTabSheet.getRow(rowNum);
 		XSSFCell cell = row.getCell(rentedColumn);
 		

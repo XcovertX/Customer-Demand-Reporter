@@ -1,6 +1,5 @@
-package main.java.application;
+package application;
 
-import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
@@ -15,8 +14,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
-import main.java.excelOperations.DemandTracker;
-import main.java.excelOperations.Modifier;
+import excelOperations.DemandTracker;
+import excelOperations.Modifier;
 
 public class Controller {
 
@@ -41,8 +40,6 @@ public class Controller {
 	@FXML private TextArea notesTextArea;
 	
 	public String unusedCell = "----------";
-	
-	private DemandTracker demandTracker;
 	
 	public Controller() {}
 	
@@ -223,6 +220,7 @@ public class Controller {
 				
 				System.out.println("Missing required information.");
 				submitButton.setSelected(false);
+				e.printStackTrace();
 				return;
 			}
 			
