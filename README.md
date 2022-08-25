@@ -8,9 +8,11 @@ The application uploads the files to a cloud filing system so all employees can 
 I am considering building a bot that to retrieve competitor information, such as pricing and availability, to incorporate a real time price modifying algorithm. The algorithm would suggest discounts or price increases based on local market availability.
 
 # Usage
-Clone the repository
-Gradle build
-gradle run
+-Clone the repository
+
+-Gradle build
+
+-gradle run
 
 # Screenshots
 
