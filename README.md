@@ -5,7 +5,7 @@ This is a small program I designed to track new customer demand for storage unit
 The application uploads the files to a cloud filing system so all employees can review in real time.
 
 # Future
-I am considering building a bot that to retrieve competitor information, such as pricing and availability, to incorporate a real time price modifying algorithm. The algorithm would suggest discounts or price increases based on local market availability.
+I am considering building a bot that would retrieve competitor information, such as pricing and unit availability, to incorporate a real-time price modifying algorithm. The algorithm would suggest discounts or price increases based on local market availability and also provide employees with a presentation page/tool to show potential customers what local storage facilities are offering.
 
 # Usage
 -Clone the repository
